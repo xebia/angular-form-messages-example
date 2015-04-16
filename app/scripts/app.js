@@ -1,2 +1,2 @@
 angular
-  .module('angularFormMessagesExample', []);
+  .module('angularFormMessagesExample', ['ngMessages', 'angularFormMessages']);
