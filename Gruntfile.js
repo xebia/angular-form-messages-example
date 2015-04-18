@@ -1,30 +1,29 @@
-'use strict';
-
 module.exports = function (grunt) {
 
   require('load-grunt-tasks')(grunt);
 
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
+    test: 'test',
     dist: 'dist'
   };
 
   grunt.initConfig({
 
-    yeoman: appConfig,
+    paths: appConfig,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        files: ['<%= paths.app %>/scripts/{,*/}*.js'],
+        tasks: ['newer:jshint:all', 'newer:jscs:all', 'newer:lintspaces:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'karma']
+        tasks: ['newer:jshint:test', 'newer:jscs:test', 'newer:lintspaces:test', 'karma']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -34,8 +33,8 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '<%= yeoman.app %>/styles/{,*/}*.css'
+          '<%= paths.app %>/{,*/}*.html',
+          '<%= paths.app %>/styles/{,*/}*.css'
         ]
       }
     },
@@ -86,12 +85,11 @@ module.exports = function (grunt) {
       dist: {
         options: {
           open: true,
-          base: '<%= yeoman.dist %>'
+          base: '<%= paths.dist %>'
         }
       }
     },
 
-    // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
         jshintrc: '.jshintrc',
@@ -100,7 +98,7 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= paths.app %>/scripts/{,*/}*.js'
         ]
       },
       test: {
@@ -111,6 +109,43 @@ module.exports = function (grunt) {
       }
     },
 
+    jscs: {
+      options: {
+        config: './.jscsrc'
+      },
+      all: {
+        files: {
+          src: ['<%= paths.app %>/scripts/{,**/}*.js']
+        }
+      },
+      test: {
+        src: ['test/{,**/}*.js']
+      }
+    },
+
+    lintspaces: {
+      options: {
+        newline: true,
+        newlineMaximum: 2,
+        trailingspaces: true
+      },
+      all: {
+        src: [
+          'Gruntfile.js',
+          '<%= paths.app %>/scripts/{,**/}*.js'
+        ]
+      },
+      test: {
+        src: [
+          'test/{,**/}*.js'
+        ]
+      }
+    },
+
+    jsonlint: {
+      src: '<%= paths.test %>/mock/**/*.json'
+    },
+
     // Test settings
     karma: {
       unit: {
@@ -119,7 +154,6 @@ module.exports = function (grunt) {
       }
     }
   });
-
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function () {
     grunt.task.run([
@@ -134,7 +168,10 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'newer:jshint',
+    'jshint',
+    'jscs',
+    'jsonlint',
+    'lintspaces',
     'test'
   ]);
 };

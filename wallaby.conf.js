@@ -1,26 +1,30 @@
 module.exports = function () {
 
+  function n(file) { return { pattern: file, instrument: false }; }
+
   return {
+    debug: true,
     files: [
-      { pattern: 'bower_components/jquery/dist/jquery.js', instrument: false },
-      { pattern: 'bower_components/angular/angular.js', instrument: false },
-      { pattern: 'bower_components/angular-messages/angular-messages.js', instrument: false },
-      { pattern: 'bower_components/angular-mocks/angular-mocks.js', instrument: false },
-      { pattern: 'bower_components/jasmine-jquery/lib/jasmine-jquery.js', instrument: false },
-      { pattern: 'bower_components/mox/src/mox.js', instrument: false },
-      { pattern: 'bower_components/angular-form-messages/src/afModule.js', instrument: false },
-      { pattern: 'bower_components/angular-form-messages/src/*.js', instrument: false },
+      n('bower_components/jquery/dist/jquery.js'),
+      n('bower_components/angular/angular.js'),
+      n('bower_components/angular-messages/angular-messages.js'),
+      n('bower_components/angular-mocks/angular-mocks.js'),
+      n('bower_components/jasmine-jquery/lib/jasmine-jquery.js'),
+      n('bower_components/jasmine-mox-matchers/src/jasmine-mox-matchers-2.x.js'),
+      n('bower_components/mox/src/mox.js'),
+      n('bower_components/angular-form-messages/src/afModule.js'),
+      n('bower_components/angular-form-messages/src/*.js'),
 
       // Mock data
       { pattern: 'test/mock/**/*.json', instrument: false, load: false },
-      { pattern: 'test/mock/**/*.js', instrument: false },
+      n('test/mock/*.js'),
 
       // Scripts
       'app/scripts/**/*.js',
-      'app/scripts/**/*.html'
+      'app/templates/**/*.html'
     ],
     tests: [
-      { pattern: 'test/spec/**/*.js', instrument: false }
+      n('test/spec/**/*.js')
     ],
     preprocessors: {
       'app/templates/**/*.html': function (file) {
