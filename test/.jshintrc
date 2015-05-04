@@ -5,6 +5,7 @@
   "globals": {
     "angular": false,
     "browser": false,
+    "compileHtml": false,
     "compileTemplate": false,
     "createController": false,
     "createScope": false,

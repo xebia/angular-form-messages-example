@@ -14,6 +14,7 @@ module.exports = function (config) {
       'bower_components/angular-form-messages/src/*.js',
 
       // Scripts
+      'app/scripts/app.js',
       'app/scripts/**/*.js',
       'app/templates/**/*.html',
 

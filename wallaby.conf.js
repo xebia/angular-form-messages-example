@@ -20,6 +20,7 @@ module.exports = function () {
       n('test/mock/*.js'),
 
       // Scripts
+      'app/scripts/app.js',
       'app/scripts/**/*.js',
       'app/templates/**/*.html'
     ],
