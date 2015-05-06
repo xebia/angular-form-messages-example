@@ -6,8 +6,6 @@ describe('the error view', function () {
     compileTemplate(template, createScope({
       message: 'This is the message'
     }));
-    // Temp, because next version of Mox will have this functionality by default
-    angular.element(document.body).append(this.element);
     this.alert = this.element.find('.alert');
   });
 
