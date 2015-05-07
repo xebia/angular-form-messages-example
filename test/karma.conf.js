@@ -29,10 +29,23 @@ module.exports = function (config) {
     plugins: [
       'karma-phantomjs-launcher',
       'karma-jasmine',
-      'karma-ng-html2js-preprocessor'
+      'karma-ng-html2js-preprocessor',
+      'karma-coverage'
     ],
 
+    reporters: ['progress', 'coverage'],
+
+    coverageReporter: {
+      dir: 'test/coverage',
+      reporters: [
+        { type: 'lcov' },
+        { type: 'text-summary' },
+        { type: 'json' }
+      ]
+    },
+
     preprocessors: {
+      'app/scripts/**/*.js': ['coverage'],
       'app/templates/**/*.html': 'ng-html2js'
     },
 

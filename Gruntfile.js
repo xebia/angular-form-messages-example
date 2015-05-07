@@ -152,6 +152,21 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    coverage: {
+      dist: {
+        options: {
+          thresholds: {
+            statements: 98,
+            branches: 98,
+            functions: 98,
+            lines: 98
+          },
+          dir: 'coverage',
+          root: 'test'
+        }
+      }
     }
   });
 
@@ -164,7 +179,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'connect:test',
-    'karma'
+    'karma',
+    'coverage'
   ]);
 
   grunt.registerTask('default', [
