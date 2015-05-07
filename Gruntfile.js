@@ -12,6 +12,8 @@ module.exports = function (grunt) {
 
     paths: appConfig,
 
+    // TODO: clean
+
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
@@ -119,7 +121,7 @@ module.exports = function (grunt) {
         }
       },
       test: {
-        src: ['test/{,**/}*.js']
+        src: ['test/spec/{,**/}*.js']
       }
     },
 
@@ -137,7 +139,7 @@ module.exports = function (grunt) {
       },
       test: {
         src: [
-          'test/{,**/}*.js'
+          'test/spec/{,**/}*.js'
         ]
       }
     },
