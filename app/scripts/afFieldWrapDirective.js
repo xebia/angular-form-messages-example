@@ -3,9 +3,9 @@ angular.module('angularFormMessagesExample')
   .directive('afFieldWrap', function () {
     return {
       link: function ($scope, elem, attrs) {
-        $scope.$on('validation', function onValidation(event, modelPath, isValid) {
+        $scope.$on('validation', function onValidation(event, modelPath, errors) {
           if (modelPath === attrs.afModelPath) {
-            elem[(isValid ? 'remove' : 'add') + 'Class']('has-error');
+            elem[(errors.length ? 'add' : 'remove') + 'Class']('has-error');
           }
         });
       }

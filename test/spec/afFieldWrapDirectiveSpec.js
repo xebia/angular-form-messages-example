@@ -19,7 +19,7 @@ describe('afFieldWrap', function () {
       describe('when the validation is "valid"', function () {
         beforeEach(function () {
           this.element.addClass('has-error');
-          $rootScope.$broadcast('validation', 'user.name', true);
+          $rootScope.$broadcast('validation', 'user.name', []);
         });
 
         it('should remove the "has-error" class from the element', function () {
@@ -30,7 +30,7 @@ describe('afFieldWrap', function () {
       describe('when the validation is "invalid"', function () {
         beforeEach(function () {
           this.element.removeClass('has-error');
-          $rootScope.$broadcast('validation', 'user.name', false);
+          $rootScope.$broadcast('validation', 'user.name', ['Error']);
         });
 
         it('should add a "has-error" class to the element', function () {
@@ -43,13 +43,13 @@ describe('afFieldWrap', function () {
 
       it('should not add the "has-error" class', function () {
         this.element.removeClass('has-error');
-        $rootScope.$broadcast('validation', 'user.other', false);
+        $rootScope.$broadcast('validation', 'user.other', ['Error']);
         expect(this.element).not.toHaveClass('has-error');
       });
 
       it('should not remove the "has-error" class', function () {
         this.element.addClass('has-error');
-        $rootScope.$broadcast('validation', 'user.other', true);
+        $rootScope.$broadcast('validation', 'user.other', []);
         expect(this.element).toHaveClass('has-error');
       });
     });

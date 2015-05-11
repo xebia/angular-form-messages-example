@@ -4,8 +4,12 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
   $scope.afterSubmit = function () {
     return $q.reject({
       validation: {
-        OMGWTF: { message: 'OMGWTF geen error', isValid: false },
-        'user.name': { message: 'User name server side error', isValid: false }
+        address: ['Cannot locate address geo'],
+        'user.name': ['User name server side error'],
+        'user.email': [
+          'User email server side error',
+          'User email server side error 2'
+        ]
       }
     });
   };
