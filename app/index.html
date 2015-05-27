@@ -17,9 +17,11 @@
           <button type="submit" class="btn btn-primary" af-submit-button>Submit</button>
         </p>
 
-        <fieldset>
+        <fieldset af-field-wrap="user.personalinfo">
           <legend>Personal information</legend>
-          <pre>{{validations | json}}</pre>
+
+          <af-error></af-error>
+
           <!--<input type="text" ng-model="user.name"/>-->
           <div class="form-group" af-field-wrap="user.name">
             <label class="control-label col-md-2" for="name">Name*</label>
@@ -48,6 +50,8 @@
             <div class="col-md-6">{{user.birthdate}}</div>
           </div>
         </fieldset>
+
+        <pre>{{validations | json}}</pre>
       </form>
     </div>
 
