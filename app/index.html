@@ -38,6 +38,15 @@
               <!--<pre>{{ userForm['user.email'] | json }}</pre>-->
             </div>
           </div>
+
+          <div class="form-group" af-field-wrap="user.birthdate">
+            <label class="control-label col-md-2" for="day">Birth date*</label>
+            <div class="col-md-4">
+              <div name="birthdate" date af-field ng-model="user.birthdate"></div>
+              <div af-error></div>
+            </div>
+            <div class="col-md-6">{{user.birthdate}}</div>
+          </div>
         </fieldset>
       </form>
     </div>
@@ -54,6 +63,7 @@
 
     <script src="scripts/app.js"></script>
     <script src="scripts/afFieldWrapDirective.js"></script>
+    <script src="scripts/dateDirective.js"></script>
     <script src="scripts/userController.js"></script>
 </body>
 </html>
