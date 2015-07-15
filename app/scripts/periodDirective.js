@@ -43,10 +43,10 @@ angular.module('angularFormMessagesExample')
         });
 
         ngModelCtrl.$validators.period = function(modelValue, viewValue) {
-          console.log(modelValue, viewValue);
-
           var value = modelValue || viewValue;
-          return value.from === undefined || value.to === undefined || moment(value.from).isBefore(moment(value.to));
+          return value.from === undefined || value.to === undefined || // No date provided
+                 DateUtils.isDate(value.from, 'YYYY-MM-DD') || DateUtils.isDate(value.to) || // Invalid date
+                 moment(value.to, 'YYYY-MM-DD').isBefore(moment(value.to));
         };
 
         $scope.period = {
