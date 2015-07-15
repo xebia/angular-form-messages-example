@@ -12,7 +12,7 @@
     <div class="container">
       <h1>Angular Form Messages example</h1>
 
-      <form class="form-horizontal" af-submit="afterSubmit()" name="userForm" af-trigger="submit" novalidate>
+      <form class="form-horizontal" af-submit="afterSubmit()" name="userForm" af-trigger="change" novalidate>
         <p>
           <button type="submit" class="btn btn-primary" af-submit-button>Submit</button>
         </p>
@@ -43,16 +43,16 @@
             <div class="col-md-6">{{user.email}}</div>
           </div>
 
-          <div class="form-group" af-field-wrap="user.birthdate">
-            <label class="control-label col-md-2" for="day">Birth date*</label>
+          <div class="form-group" af-field-wrap="user.period">
+            <label class="control-label col-md-2" for="from">Period</label>
             <div class="col-md-4">
-              <div name="birthdate" date af-field ng-model="user.birthdate"></div>
+              <div name="period" period af-field ng-model="user.period"></div>
               <div af-error></div>
             </div>
-            <div class="col-md-6">{{user.birthdate}}</div>
+            <div class="col-md-6">{{user.period}}</div>
           </div>
         </fieldset>
-
+        <p>Form valid: {{userForm.$valid}}</p>
         <pre>{{validations | json}}</pre>
       </form>
     </div>
@@ -70,6 +70,7 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/afFieldWrapDirective.js"></script>
     <script src="scripts/dateDirective.js"></script>
+    <script src="scripts/periodDirective.js"></script>
     <script src="scripts/userController.js"></script>
 </body>
 </html>
