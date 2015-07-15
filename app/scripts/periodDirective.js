@@ -1,6 +1,7 @@
 angular.module('angularFormMessagesExample')
-  .directive('period', function () {
+  .directive('period', function (DateUtils) {
     return {
+      restrict: 'A',
       require: 'ngModel',
       scope: {
         period: '=ngModel'
@@ -32,7 +33,7 @@ angular.module('angularFormMessagesExample')
         $scope.$watch('[from, to]', function (newVal) {
           function validateDate(dateString) {
             if (dateString === undefined) { return; }
-            return dateString.match(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/) && moment(dateString, 'YYYY-MM-DD').isValid() ?
+            return DateUtils.isDate(dateString) && moment(dateString, 'YYYY-MM-DD').isValid() ?
               dateString : undefined;
           }
           ngModelCtrl.$setViewValue({
