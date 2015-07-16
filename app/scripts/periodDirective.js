@@ -6,19 +6,20 @@ angular.module('angularFormMessagesExample')
       scope: {
         period: '=ngModel'
       },
-      templateUrl: 'scripts/periodDirective.html',
+      templateUrl: 'templates/periodDirective.html',
       link: function ($scope, elem, attrs, ngModelCtrl) {
 
         // Map model onto $viewValue
-        ngModelCtrl.$formatters.push(function(modelValue) {
+        ngModelCtrl.$formatters.push(function (modelValue) {
           return modelValue;
         });
 
         // Map $viewValue onto UI
         ngModelCtrl.$render = function () {
-          if (ngModelCtrl.$viewValue === undefined) { return; }
-          $scope.from = ngModelCtrl.$viewValue.from;
-          $scope.to = ngModelCtrl.$viewValue.to;
+          if (angular.isObject(ngModelCtrl.$viewValue)) {
+            $scope.from = ngModelCtrl.$viewValue.from;
+            $scope.to = ngModelCtrl.$viewValue.to;
+          }
         };
 
         // Map $viewValue onto $modelValue
@@ -42,16 +43,11 @@ angular.module('angularFormMessagesExample')
           });
         });
 
-        ngModelCtrl.$validators.period = function(modelValue, viewValue) {
+        ngModelCtrl.$validators.period = function (modelValue, viewValue) {
           var value = modelValue || viewValue;
-          return value.from === undefined || value.to === undefined || // No date provided
-                 DateUtils.isDate(value.from, 'YYYY-MM-DD') || DateUtils.isDate(value.to) || // Invalid date
-                 moment(value.to, 'YYYY-MM-DD').isBefore(moment(value.to));
-        };
-
-        $scope.period = {
-          from: '2013-22-03',
-          to: '2014-02-03'
+          return value === undefined || value.from === undefined || value.to === undefined || // No date provided
+                 !DateUtils.isDate(value.from, 'YYYY-MM-DD') || !DateUtils.isDate(value.to) || // Invalid date
+                 moment(value.from, 'YYYY-MM-DD').isBefore(moment(value.to));
         };
       }
     };
