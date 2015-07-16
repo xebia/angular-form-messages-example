@@ -7,6 +7,7 @@ module.exports = function () {
     files: [
       n('bower_components/jquery/dist/jquery.js'),
       n('bower_components/angular/angular.js'),
+      n('bower_components/moment/moment.js'),
       n('bower_components/angular-messages/angular-messages.js'),
       n('bower_components/angular-mocks/angular-mocks.js'),
       n('bower_components/jasmine-jquery/lib/jasmine-jquery.js'),
