@@ -6,7 +6,7 @@ angular.module('angularFormMessagesExample')
       link: function ($scope, element, attrs, ngModelCtrl) {
         ngModelCtrl.$validators.date = function (modelValue, viewValue) {
           var value = modelValue || viewValue;
-          return DateUtils.isDate(value);
+          return ngModelCtrl.$isEmpty(value) || DateUtils.isDate(value);
         };
       }
     };
