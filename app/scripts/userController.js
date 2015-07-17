@@ -5,6 +5,7 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
     return $timeout(function () {
       return $q.reject({
         validation: {
+          'user.personalinfo': ['There is something wrong with the personal information'],
           address: ['Cannot locate address geo'],
           'user.name': ['User name server side error'],
           'user.email': [
