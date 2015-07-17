@@ -5,6 +5,7 @@ module.exports = function (config) {
       // Libraries
       'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
+      'bower_components/moment/moment.js',
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
