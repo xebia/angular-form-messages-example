@@ -1,5 +1,7 @@
 describe('UserController', function () {
 
+  var $timeout;
+
   beforeEach(function () {
     mox
       .module('angularFormMessagesExample')
@@ -7,6 +9,9 @@ describe('UserController', function () {
 
     createScope();
     createController('UserController', this.$scope);
+    inject(function (_$timeout_) {
+      $timeout = _$timeout_;
+    });
   });
 
   it('should have a user on the scope', function () {
@@ -16,7 +21,10 @@ describe('UserController', function () {
   describe('the submit callback', function () {
     it('should return a failing promise with errors', function () {
       var errors = getMockData('user/errors.json');
-      expect(this.$scope.afterSubmit()).toRejectWith(errors);
+      var result = this.$scope.afterSubmit();
+      $timeout.flush(2000);
+
+      expect(result).toRejectWith(errors);
     });
   });
 
