@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/spinner.css" />
   </head>
   <body ng-app="angularFormMessagesExample" ng-controller="UserController">
 
@@ -15,6 +16,7 @@
       <form class="form-horizontal" af-submit="afterSubmit()" name="userForm" af-trigger="submit" novalidate>
         <p>
           <button type="submit" class="btn btn-primary" af-submit-button>Submit</button>
+          <span ng-show="isSubmitting" class="spinner"></span>
         </p>
 
         <fieldset>
