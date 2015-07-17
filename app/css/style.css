@@ -1,0 +1,7 @@
+.has-error .form-group:not(.has-error) .form-control {
+    border-color: #ccc;
+}
+.has-error .form-group:not(.has-error) .control-label,
+.has-error .form-group:not(.has-error) .radio {
+    color: #333;
+}
