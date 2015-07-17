@@ -13,7 +13,7 @@
     <div class="container">
       <h1>Angular Form Messages example</h1>
 
-      <form class="form-horizontal" af-submit="afterSubmit()" name="userForm" af-trigger="change" novalidate>
+      <form class="form-horizontal" af-submit="afterSubmit()" name="userForm" af-trigger-on="change" novalidate>
         <p>
           <button type="submit" class="btn btn-primary" af-submit-button>Submit</button>
           <span ng-show="isSubmitting" class="spinner"></span>
@@ -45,6 +45,33 @@
             <div class="col-md-6">{{user.email}}</div>
           </div>
 
+          <div class="form-group" af-field-wrap af-model-path="user.gender" has-error>
+            <label for="male" class="control-label col-md-2">{{user.gender}} Gender*</label>
+            <div class="col-md-4">
+              <div class="radio">
+                <label>
+                  <input type="radio" id="male" name="user.gender" ng-model="user.gender" value="male" af-field required /> Male
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" id="female" name="user.gender" ng-model="user.gender" value="female" af-field required /> Female
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" id="other" name="user.gender" ng-model="user.gender" value="other" af-field required /> Other, namely:
+                  <div af-field-wrap af-model-path="user.otherGender" has-error>
+                    <input type="text" class="form-control" name="user.otherGender" ng-model="user.otherGender" af-field af-trigger="user.gender === 'other'" ng-required="user.gender === 'other'" />
+                    <div af-error></div>
+                    <!--<pre>{{userForm['user.otherGender'] | json}}</pre>-->
+                  </div>
+                </label>
+              </div>
+              <div af-error></div>
+            </div>
+          </div>
+
           <div class="form-group" af-field-wrap="user.period">
             <label class="control-label col-md-2" for="from">Period</label>
             <div class="col-md-4">
@@ -53,9 +80,11 @@
             </div>
             <div class="col-md-6">{{user.period}}</div>
           </div>
+
+          <p>Form valid: {{userForm.$valid}}</p>
+          <pre>{{validations | json}}</pre>
+
         </fieldset>
-        <p>Form valid: {{userForm.$valid}}</p>
-        <pre>{{validations | json}}</pre>
       </form>
     </div>
 
