@@ -45,7 +45,7 @@
             <div class="col-md-6">{{user.email}}</div>
           </div>
 
-          <div class="form-group" af-field-wrap af-model-path="user.gender" has-error>
+          <div class="form-group" af-field-wrap="user.gender" has-error>
             <label for="male" class="control-label col-md-2">{{user.gender}} Gender*</label>
             <div class="col-md-4">
               <div class="radio">
@@ -61,7 +61,7 @@
               <div class="radio">
                 <label>
                   <input type="radio" id="other" name="user.gender" ng-model="user.gender" value="other" af-field required /> Other, namely:
-                  <div af-field-wrap af-model-path="user.otherGender" has-error>
+                  <div af-field-wrap="user.otherGender" has-error>
                     <input type="text" class="form-control" name="user.otherGender" ng-model="user.otherGender" af-field af-trigger="user.gender === 'other'" ng-required="user.gender === 'other'" />
                     <div af-error></div>
                     <!--<pre>{{userForm['user.otherGender'] | json}}</pre>-->
