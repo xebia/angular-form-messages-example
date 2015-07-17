@@ -5,7 +5,7 @@ angular.module('angularFormMessagesExample')
       link: function ($scope, elem, attrs) {
         $scope.$on('validation', function onValidation(event, messageId, errors) {
           if (messageId === attrs.afFieldWrap) {
-            elem[(errors.length ? 'add' : 'remove') + 'Class']('has-error');
+            attrs['$' + (errors.length ? 'add' : 'remove') + 'Class']('has-error');
           }
         });
       }
