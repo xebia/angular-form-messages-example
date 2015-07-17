@@ -169,6 +169,12 @@ module.exports = function (grunt) {
           root: 'test'
         }
       }
+    },
+
+    githooks: {
+      all: {
+        'pre-commit': 'default'
+      }
     }
   });
 
