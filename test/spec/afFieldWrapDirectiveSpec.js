@@ -11,7 +11,7 @@ describe('afFieldWrap', function () {
     });
 
     createScope();
-    compileHtml('<div af-field-wrap af-model-path="user.name"></div>', this.$scope);
+    this.element = compileHtml('<form name="userForm"><div af-field-wrap="user.name"></div></form>', this.$scope).find('[af-field-wrap]');
   });
 
   describe('when a validation event has been fired', function () {
