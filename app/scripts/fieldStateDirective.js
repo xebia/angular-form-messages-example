@@ -1,6 +1,5 @@
 angular.module('angularFormMessagesExample')
-  // Extend the original directive to add/remove the 'has-error' class on the element
-  .directive('afFieldWrap', function () {
+  .directive('fieldState', function () {
     return {
       link: function ($scope, elem, attrs) {
         $scope.$on('validation', function onValidation(event, messageId, errors) {

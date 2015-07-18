@@ -20,13 +20,13 @@
           <span ng-show="isSubmitting" class="spinner"></span>
         </p>
 
-        <fieldset af-field-wrap="user.personalinfo">
+        <fieldset af-field-wrap="user.personalinfo" field-state>
           <legend>Personal information</legend>
 
           <af-error></af-error>
 
           <!--<input type="text" ng-model="user.name"/>-->
-          <div class="form-group" af-field-wrap="user.name">
+          <div class="form-group" af-field-wrap="user.name" field-state>
             <label class="control-label col-md-2" for="name">Name*</label>
             <div class="col-md-4">
               <input type="text" class="form-control" id="name" name="name" ng-model="user.name" af-field required />
@@ -36,7 +36,7 @@
             <div class="col-md-6">{{user.name}}</div>
           </div>
 
-          <div class="form-group" af-field-wrap="user.email">
+          <div class="form-group" af-field-wrap="user.email" field-state>
             <label class="control-label col-md-2" for="email">{{user.email}} E-mail*</label>
             <div class="col-md-4">
               <input type="email" class="form-control" id="email" name="email" ng-model="user.email" af-field required />
@@ -46,7 +46,7 @@
             <div class="col-md-6">{{user.email}}</div>
           </div>
 
-          <div class="form-group" af-field-wrap="user.gender" has-error>
+          <div class="form-group" af-field-wrap="user.gender" field-state>
             <label for="male" class="control-label col-md-2">{{user.gender}} Gender*</label>
             <div class="col-md-4">
               <div class="radio">
@@ -62,7 +62,7 @@
               <div class="radio">
                 <label>
                   <input type="radio" id="other" name="user.gender" ng-model="user.gender" value="other" af-field required /> Other, namely:
-                  <div af-field-wrap="user.otherGender" has-error>
+                  <div af-field-wrap="user.otherGender" field-state>
                     <input type="text" class="form-control" name="user.otherGender" ng-model="user.otherGender" af-field af-trigger="user.gender === 'other'" ng-required="user.gender === 'other'" />
                     <div af-error></div>
                     <!--<pre>{{userForm['user.otherGender'] | json}}</pre>-->
@@ -73,7 +73,7 @@
             </div>
           </div>
 
-          <div class="form-group" af-field-wrap="user.color">
+          <div class="form-group" af-field-wrap="user.color" field-state>
             <label class="control-label col-md-2" for="color">Favorite color*</label>
             <div class="col-md-4">
               <select class="form-control" name="color" id="color" af-field ng-model="user.color" ng-options="value for (key, value) in {red: 'Red', blue: 'Blue', green: 'Green'}" required>
@@ -84,7 +84,7 @@
             <div class="col-md-6">{{user.color}}</div>
           </div>
 
-          <div class="form-group" af-field-wrap="user.period">
+          <div class="form-group" af-field-wrap="user.period" field-state>
             <label class="control-label col-md-2" for="from">Period</label>
             <div class="col-md-4">
               <div name="period" id="period" period af-field ng-model="user.period"></div>
