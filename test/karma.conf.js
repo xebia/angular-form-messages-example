@@ -9,8 +9,8 @@ module.exports = function (config) {
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
-      'bower_components/jasmine-mox-matchers/src/jasmine-mox-matchers-2.x.js',
-      'bower_components/mox/src/mox.js',
+      'bower_components/jasmine-mox-matchers/src/jasmine-mox-matchers.js',
+      'bower_components/mox/dist/mox.js',
       'bower_components/angular-form-messages/src/afModule.js',
       'bower_components/angular-form-messages/src/*.js',
 
