@@ -11,7 +11,9 @@ describe('afFieldWrap', function () {
     });
 
     createScope();
-    this.element = compileHtml('<form name="userForm"><div af-field-wrap="user.name" field-state></div></form>', this.$scope).find('[field-state]');
+    this.element = compileHtml('<form name="userForm" af-submit>' +
+                                 '<div af-field-wrap="user.name" field-state></div>' +
+                               '</form>', this.$scope).find('[field-state]');
   });
 
   describe('when a validation event has been fired', function () {
@@ -26,6 +28,18 @@ describe('afFieldWrap', function () {
         it('should remove the "has-error" class from the element', function () {
           expect(this.element).not.toHaveClass('has-error');
         });
+
+        describe('when showSuccess is true on the afSubmit directive', function () {
+          beforeEach(function () {
+            this.element.parent().controller('afSubmit').showSuccess = true;
+            $rootScope.$broadcast('validation', 'user.name', []);
+            this.$scope.$digest();
+          });
+
+          it('should add the "has-success" class to the element', function () {
+            expect(this.element).toHaveClass('has-success');
+          });
+        });
       });
 
       describe('when the validation is "invalid"', function () {
@@ -37,6 +51,19 @@ describe('afFieldWrap', function () {
 
         it('should add a "has-error" class to the element', function () {
           expect(this.element).toHaveClass('has-error');
+        });
+
+        describe('when showSuccess is true on the afSubmit directive', function () {
+          beforeEach(function () {
+            this.element.addClass('has-success');
+            this.element.parent().controller('afSubmit').showSuccess = true;
+            $rootScope.$broadcast('validation', 'user.name', ['Error']);
+            this.$scope.$digest();
+          });
+
+          it('should remove the "has-success" class from the element', function () {
+            expect(this.element).not.toHaveClass('has-success');
+          });
         });
       });
     });
