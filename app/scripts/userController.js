@@ -5,12 +5,12 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
     return $timeout(function () {
       return $q.reject({
         validation: {
-          'user.personalinfo': ['There is something wrong with the personal information'],
-          address: ['Cannot locate address geo'],
-          'user.name': ['User name server side error'],
+          'user.personalinfo': [{ message: 'There is something wrong with the personal information', type: 'error' }],
+          address: [{ message: 'Cannot locate address geo', type: 'error' }],
+          'user.name': [{ message: 'User name server side error', type: 'error' }],
           'user.email': [
-            'User email server side error',
-            'User email server side error 2'
+            { message: 'User email server side error', type: 'error' },
+            { message: 'User email server side error 2', type: 'error' }
           ]
         }
       });
