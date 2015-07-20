@@ -1,0 +1,5 @@
+<div class="alert alert-danger help-block" ng-style="{ 'margin-bottom': $last ? undefined : '0px' }" role="alert" ng-repeat="error in errors track by $index">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Errors:</span>
+  {{error}}
+</div>
