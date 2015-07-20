@@ -1,5 +1,28 @@
 describe('afFieldWrap', function () {
-  var $rootScope;
+
+  function setup(invalid, fieldName) {
+    this.element.removeClass(invalid ? 'has-error' : 'has-success');
+    this.element.addClass(invalid ? 'has-success' : 'has-error');
+    $rootScope.$broadcast('validation', fieldName, invalid ? ['Error'] : []);
+    this.$scope.$digest();
+  }
+
+  function checkErrorClass(className, invert) {
+    var ex = expect(this.element);
+    if (invert) {
+      ex = ex.not;
+    }
+    ex.toHaveClass(className);
+  }
+
+  var
+    $rootScope,
+    invalidSetup = _.partial(setup, true),
+    validSetup = _.partial(setup, false),
+    expectHasSuccess = _.partial(checkErrorClass, 'has-success'),
+    expectHasError = _.partial(checkErrorClass, 'has-error'),
+    expectHasNoSuccess = _.partial(checkErrorClass, 'has-success', true),
+    expectHasNoError = _.partial(checkErrorClass, 'has-error', true);
 
   beforeEach(function () {
     mox
@@ -17,53 +40,46 @@ describe('afFieldWrap', function () {
   });
 
   describe('when a validation event has been fired', function () {
+
     describe('when it is meant for the field wrap with the modelPath attached to the event', function () {
-      describe('when the validation is "valid"', function () {
-        beforeEach(function () {
-          this.element.addClass('has-error');
-          $rootScope.$broadcast('validation', 'user.name', []);
-          this.$scope.$digest();
+
+      function showSuccess(value) {
+        this.element.parent().controller('afSubmit').showSuccess = value;
+      }
+
+      describe('when showSuccess is true on the afSubmit directive', function () {
+        beforeEach(_.partial(showSuccess, true));
+
+        describe('when the validation is "valid"', function () {
+          beforeEach(_.partial(validSetup, 'user.name'));
+
+          it('should remove the "has-error" class from the element', expectHasNoError);
+
+          it('should add the "has-success" class to the element', expectHasSuccess);
         });
 
-        it('should remove the "has-error" class from the element', function () {
-          expect(this.element).not.toHaveClass('has-error');
-        });
+        describe('when the validation is "invalid"', function () {
+          beforeEach(_.partial(invalidSetup, 'user.name'));
 
-        describe('when showSuccess is true on the afSubmit directive', function () {
-          beforeEach(function () {
-            this.element.parent().controller('afSubmit').showSuccess = true;
-            $rootScope.$broadcast('validation', 'user.name', []);
-            this.$scope.$digest();
-          });
+          it('should add a "has-error" class to the element', expectHasError);
 
-          it('should add the "has-success" class to the element', function () {
-            expect(this.element).toHaveClass('has-success');
-          });
+          it('should remove the "has-success" class from the element', expectHasNoSuccess);
         });
       });
 
-      describe('when the validation is "invalid"', function () {
-        beforeEach(function () {
-          this.element.removeClass('has-error');
-          $rootScope.$broadcast('validation', 'user.name', ['Error']);
-          this.$scope.$digest();
+      describe('when showSuccess is false on the afSubmit directive', function () {
+        beforeEach(_.partial(showSuccess, false));
+
+        describe('when the validation is "valid"', function () {
+          beforeEach(_.partial(validSetup, 'user.name'));
+
+          it('should not add the "has-success" class', expectHasNoSuccess);
         });
 
-        it('should add a "has-error" class to the element', function () {
-          expect(this.element).toHaveClass('has-error');
-        });
+        describe('when the validation is "invalid"', function () {
+          beforeEach(_.partial(invalidSetup, 'user.name'));
 
-        describe('when showSuccess is true on the afSubmit directive', function () {
-          beforeEach(function () {
-            this.element.addClass('has-success');
-            this.element.parent().controller('afSubmit').showSuccess = true;
-            $rootScope.$broadcast('validation', 'user.name', ['Error']);
-            this.$scope.$digest();
-          });
-
-          it('should remove the "has-success" class from the element', function () {
-            expect(this.element).not.toHaveClass('has-success');
-          });
+          it('should not remove the "has-success" class', expectHasSuccess);
         });
       });
     });
@@ -71,17 +87,13 @@ describe('afFieldWrap', function () {
     describe('when it is not meant for this field wrap', function () {
 
       it('should not add the "has-error" class', function () {
-        this.element.removeClass('has-error');
-        $rootScope.$broadcast('validation', 'user.other', ['Error']);
-        this.$scope.$digest();
-        expect(this.element).not.toHaveClass('has-error');
+        invalidSetup.call(this, 'user.other');
+        expectHasNoError.call(this);
       });
 
       it('should not remove the "has-error" class', function () {
-        this.element.addClass('has-error');
-        $rootScope.$broadcast('validation', 'user.other', []);
-        this.$scope.$digest();
-        expect(this.element).toHaveClass('has-error');
+        validSetup.call(this, 'user.other');
+        expectHasError.call(this);
       });
     });
 
