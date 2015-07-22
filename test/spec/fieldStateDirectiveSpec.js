@@ -1,15 +1,15 @@
 describe('afFieldWrap', function () {
 
   function sendValidation(fieldName, messages) {
-    $rootScope.$broadcast('validation', fieldName, messages);
+    inj.$rootScope.$broadcast('validation', fieldName, messages);
     this.$scope.$digest();
   }
 
   function setup(messageType, fieldName) {
     if (messageType) {
-      this.element.removeClass('has-' + messageType);
+      this.element.removeClass('has-' + messageType.toLowerCase());
     }
-    this.element.addClass(messageType === 'error' ? 'has-warning has-info has-success' : 'has-error');
+    this.element.addClass(messageType === inj.MESSAGE_TYPES[3] ? 'has-warning has-info has-success' : 'has-error');
 
     sendValidation.call(this, fieldName, messageType ? [{ message: 'Error', type: messageType }] : []);
   }
@@ -18,8 +18,8 @@ describe('afFieldWrap', function () {
     this.element.addClass('has-warning');
 
     sendValidation.call(this, 'user.name', [
-      { message: 'Error', type: 'error' },
-      { message: 'Warning', type: 'warning' }
+      { message: 'Error', type: inj.MESSAGE_TYPES[3] },
+      { message: 'Warning', type: inj.MESSAGE_TYPES[2] }
     ]);
   }
 
@@ -32,12 +32,12 @@ describe('afFieldWrap', function () {
   }
 
   var
-    $rootScope,
+    inj,
 
-    errorSetup = _.partial(setup, 'error'),
-    warningSetup = _.partial(setup, 'warning'),
-    infoSetup = _.partial(setup, 'info'),
-    successSetup = _.partial(setup, 'success'),
+    errorSetup = _.partial(setup, 'ERROR'),
+    warningSetup = _.partial(setup, 'WARNING'),
+    infoSetup = _.partial(setup, 'INFO'),
+    successSetup = _.partial(setup, 'SUCCESS'),
     noMessageSetup = _.partial(setup, false),
 
     expectHasError = _.partial(checkErrorClass, 'has-error'),
@@ -54,10 +54,7 @@ describe('afFieldWrap', function () {
     mox
       .module('angularFormMessagesExample')
       .run();
-
-    inject(function (_$rootScope_) {
-      $rootScope = _$rootScope_;
-    });
+    inj = mox.inject('$rootScope', 'MESSAGE_TYPES');
 
     createScope();
     this.element = compileHtml('<form name="userForm" af-submit>' +
