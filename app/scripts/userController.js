@@ -7,7 +7,8 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
         validation: {
           'user.personalinfo': [{ message: 'There is something wrong with the personal information', type: 'error' }],
           address: [{ message: 'Cannot locate address geo', type: 'error' }],
-          'user.name': [{ message: 'User name server side error', type: 'error' }],
+          'user.gender': [{ message: 'Gender server side success', type: 'success' }],
+          'user.name': [{ message: 'User name server side info', type: 'info' }],
           'user.email': [
             { message: 'User email server side error', type: 'error' },
             { message: 'User email server side warning', type: 'warning' }
