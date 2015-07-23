@@ -1,7 +1,4 @@
 describe('the error view', function () {
-  function getAlerts() {
-    return this.element.find('.alert');
-  }
 
   beforeEach(function () {
     mox.module(
@@ -9,34 +6,38 @@ describe('the error view', function () {
       'templates/afError.html'
     ).run();
 
+    var MESSAGE_TYPES = mox.inject('MESSAGE_TYPES');
+
     createScope({
       messages: [
-        { message: 'This is the message', type: 'error' },
-        { message: 'This is the second message', type: 'warning' },
-        { message: 'This is the third message', type: 'info' },
-        { message: 'This is the fourth message', type: 'success' }
+        { message: 'This is the message', type: MESSAGE_TYPES[3] },
+        { message: 'This is the second message', type: MESSAGE_TYPES[2] },
+        { message: 'This is the third message', type: MESSAGE_TYPES[1] },
+        { message: 'This is the fourth message', type: MESSAGE_TYPES[0] }
       ]
     });
-    compileHtml('<form><div af-field-wrap><div af-error></div></div></form>');
+
+    this.element = addSelectors(compileHtml('<form><div af-field-wrap="user.name"><div af-error></div></div></form>'), {
+      alerts: '.alert',
+      alert: '.alert:eq({0})'
+    });
   });
 
   it('should show the error messages', function () {
-    expect(getAlerts.call(this)).toHaveLength(this.$scope.messages.length);
+    expect(this.element.alerts()).toHaveLength(this.$scope.messages.length);
   });
 
   it('should be added when there is a message on the scope', function () {
-    var alerts = getAlerts.call(this);
-    expect(alerts.eq(0).find('.sr-only')).toHaveText('Errors:');
-    expect(alerts.eq(0)).toContainText(this.$scope.messages[0].message);
-    expect(alerts.eq(1)).toContainText(this.$scope.messages[1].message);
+    expect(this.element.alert(0).find('.sr-only')).toHaveText('Errors:');
+    expect(this.element.alert(0)).toContainText(this.$scope.messages[0].message);
+    expect(this.element.alert(1)).toContainText(this.$scope.messages[1].message);
   });
 
   it('should show a class for messages with type error, warning, info and success', function () {
-    var alerts = getAlerts.call(this);
-    expect(alerts.eq(0)).toHaveClass('alert-danger');
-    expect(alerts.eq(1)).toHaveClass('alert-warning');
-    expect(alerts.eq(2)).toHaveClass('alert-info');
-    expect(alerts.eq(3)).toHaveClass('alert-success');
+    expect(this.element.alert(0)).toHaveClass('alert-danger');
+    expect(this.element.alert(1)).toHaveClass('alert-warning');
+    expect(this.element.alert(2)).toHaveClass('alert-info');
+    expect(this.element.alert(3)).toHaveClass('alert-success');
   });
 
 });
