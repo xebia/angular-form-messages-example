@@ -1,43 +1,97 @@
 describe('the error view', function () {
 
+  function validateWithMessageType(messageType) {
+    inj.$rootScope.$broadcast('validation', 'user.name', messages, messageType);
+    this.$scope.$digest();
+  }
+
+  var
+    inj,
+    messages;
+
   beforeEach(function () {
     mox.module(
       'angularFormMessagesExample',
       'templates/afError.html'
     ).run();
 
-    var MESSAGE_TYPES = mox.inject('MESSAGE_TYPES');
+    inj = mox.inject('$rootScope', 'MESSAGE_TYPES');
+    messages = [
+      { message: 'This is the message', type: inj.MESSAGE_TYPES[0] },
+      { message: 'This is the second message', type: inj.MESSAGE_TYPES[1] },
+      { message: 'This is the third message', type: inj.MESSAGE_TYPES[2] },
+      { message: 'This is the fourth message', type: inj.MESSAGE_TYPES[3] }
+    ];
 
-    createScope({
-      messages: [
-        { message: 'This is the message', type: MESSAGE_TYPES[3] },
-        { message: 'This is the second message', type: MESSAGE_TYPES[2] },
-        { message: 'This is the third message', type: MESSAGE_TYPES[1] },
-        { message: 'This is the fourth message', type: MESSAGE_TYPES[0] }
-      ]
-    });
-
+    createScope();
     this.element = addSelectors(compileHtml('<form><div af-field-wrap="user.name"><div af-error></div></div></form>'), {
+      feedbackIcon: '.form-control-feedback',
       alerts: '.alert',
-      alert: '.alert:eq({0})'
+      alert: {
+        selector: '.alert:eq({0})',
+        sub: {
+          icon: '.glyphicon',
+          prefix: '.sr-only'
+        }
+      }
+    });
+
+  });
+
+  describe('on initialization', function () {
+    it('should show no messages', function () {
+      expect(this.element.alerts()).not.toExist();
+    });
+
+    it('should show no feedback icon', function () {
+      expect(this.element.feedbackIcon()).not.toExist();
     });
   });
 
-  it('should show the error messages', function () {
-    expect(this.element.alerts()).toHaveLength(this.$scope.messages.length);
-  });
+  describe('when a validation event is fired', function () {
+    beforeEach(function () {
+      inj.$rootScope.$broadcast('validation', 'user.name', messages, inj.MESSAGE_TYPES[0]);
+      this.$scope.$digest();
+    });
 
-  it('should be added when there is a message on the scope', function () {
-    expect(this.element.alert(0).find('.sr-only')).toHaveText('Errors:');
-    expect(this.element.alert(0)).toContainText(this.$scope.messages[0].message);
-    expect(this.element.alert(1)).toContainText(this.$scope.messages[1].message);
-  });
+    it('should show the messages', function () {
+      expect(this.element.alerts()).toHaveLength(messages.length);
+    });
 
-  it('should show a class for messages with type error, warning, info and success', function () {
-    expect(this.element.alert(0)).toHaveClass('alert-danger');
-    expect(this.element.alert(1)).toHaveClass('alert-warning');
-    expect(this.element.alert(2)).toHaveClass('alert-info');
-    expect(this.element.alert(3)).toHaveClass('alert-success');
+    it('should the message text and type', function () {
+      expect(this.element.alert(0).prefix()).toHaveText(messages[0].type + ':');
+      expect(this.element.alert(1).prefix()).toHaveText(messages[1].type + ':');
+      expect(this.element.alert(0)).toContainText(messages[0].message);
+      expect(this.element.alert(1)).toContainText(messages[1].message);
+    });
+
+    it('should show an alert class for messages with type error, warning, info and success', function () {
+      expect(this.element.alert(0)).toHaveClass('alert-success');
+      expect(this.element.alert(1)).toHaveClass('alert-info');
+      expect(this.element.alert(2)).toHaveClass('alert-warning');
+      expect(this.element.alert(3)).toHaveClass('alert-danger');
+    });
+
+    it('should show a message type icon', function () {
+      expect(this.element.alert(0).icon()).toHaveClass('glyphicon-ok');
+      expect(this.element.alert(1).icon()).toHaveClass('glyphicon-info-sign');
+      expect(this.element.alert(2).icon()).toHaveClass('glyphicon-warning-sign');
+      expect(this.element.alert(3).icon()).toHaveClass('glyphicon-exclamation-sign');
+    });
+
+    it('should show a feedback icon in the input field', function () {
+      expect(this.element.feedbackIcon()).toHaveClass('glyphicon-ok');
+
+      validateWithMessageType.call(this, inj.MESSAGE_TYPES[1]);
+      expect(this.element.feedbackIcon()).toHaveClass('glyphicon-info-sign');
+
+      validateWithMessageType.call(this, inj.MESSAGE_TYPES[2]);
+      expect(this.element.feedbackIcon()).toHaveClass('glyphicon-warning-sign');
+
+      validateWithMessageType.call(this, inj.MESSAGE_TYPES[3]);
+      expect(this.element.feedbackIcon()).toHaveClass('glyphicon-remove');
+
+    });
   });
 
 });
