@@ -5,7 +5,7 @@ describe('afFieldWrap', function () {
     this.$scope.$digest();
   }
 
-  function setup(messageType, fieldName) {
+  function setup(messageType, messageCount, fieldName) {
     if (messageType) {
       this.element.removeClass('has-' + messageType.toLowerCase());
       this.element.removeClass('has-feedback');
@@ -14,7 +14,13 @@ describe('afFieldWrap', function () {
     }
     this.element.addClass(messageType === inj.MESSAGE_TYPES[3] ? 'has-warning has-info has-success' : 'has-error');
 
-    sendValidation.call(this, fieldName, [], messageType);
+    var messages = _.map(_.range(messageCount), function (i) {
+      return {
+        message: 'Message ' + i,
+        type: inj.MESSAGE_TYPES[i]
+      };
+    });
+    sendValidation.call(this, fieldName, messages, messageType);
   }
 
   function checkMessageClass(className, invert) {
@@ -28,11 +34,12 @@ describe('afFieldWrap', function () {
   var
     inj,
 
-    errorSetup = _.partial(setup, 'ERROR'),
-    warningSetup = _.partial(setup, 'WARNING'),
-    infoSetup = _.partial(setup, 'INFO'),
-    successSetup = _.partial(setup, 'SUCCESS'),
-    noMessageSetup = _.partial(setup, false),
+    errorSetup = _.partial(setup, 'ERROR', 1),
+    warningSetup = _.partial(setup, 'WARNING', 1),
+    infoSetup = _.partial(setup, 'INFO', 1),
+    successSetup = _.partial(setup, 'SUCCESS', 1),
+    noMessageSetup = _.partial(setup, false, 0),
+    successInfoSetup = _.partial(setup, false, 2),
 
     expectHasError = _.partial(checkMessageClass, 'has-error'),
     expectHasWarning = _.partial(checkMessageClass, 'has-warning'),
@@ -72,8 +79,8 @@ describe('afFieldWrap', function () {
         describe('when the validation is "valid"', function () {
           beforeEach(_.partial(noMessageSetup, 'user.name'));
 
-          it('should add the "has-success" class to the element', expectHasSuccess);
           it('should add the "has-feedback" class to the element"', expectHasFeedback);
+          it('should add the "has-success" class to the element', expectHasSuccess);
           it('should remove the "has-error" class from the element', expectHasNoError);
           it('should remove the "has-warning" class from the element', expectHasNoWarning);
           it('should remove the "has-info" class from the element', expectHasNoInfo);
@@ -82,8 +89,8 @@ describe('afFieldWrap', function () {
         describe('when the validation is "error"', function () {
           beforeEach(_.partial(errorSetup, 'user.name'));
 
-          it('should add the "has-error" class to the element', expectHasError);
           it('should add the "has-feedback" class to the element"', expectHasFeedback);
+          it('should add the "has-error" class to the element', expectHasError);
           it('should remove the "has-warning" class from the element', expectHasNoWarning);
           it('should remove the "has-info" class from the element', expectHasNoInfo);
           it('should remove the "has-success" class from the element', expectHasNoSuccess);
@@ -92,8 +99,8 @@ describe('afFieldWrap', function () {
         describe('when the validation is "warning"', function () {
           beforeEach(_.partial(warningSetup, 'user.name'));
 
-          it('should add the "has-warning" class to the element', expectHasWarning);
           it('should add the "has-feedback" class to the element"', expectHasFeedback);
+          it('should add the "has-warning" class to the element', expectHasWarning);
           it('should remove the "has-error" class from the element', expectHasNoError);
           it('should remove the "has-info" class from the element', expectHasNoInfo);
           it('should remove the "has-success" class from the element', expectHasNoSuccess);
@@ -102,7 +109,8 @@ describe('afFieldWrap', function () {
         describe('when the validation is "info"', function () {
           beforeEach(_.partial(infoSetup, 'user.name'));
 
-          it('should add the "has-warning" class to the element', expectHasInfo);
+          it('should add the "has-feedback" class to the element"', expectHasFeedback);
+          it('should add the "has-info" class to the element', expectHasInfo);
           it('should remove the "has-error" class from the element', expectHasNoError);
           it('should remove the "has-warning" class from the element', expectHasNoWarning);
           it('should remove the "has-success" class from the element', expectHasNoSuccess);
@@ -111,10 +119,21 @@ describe('afFieldWrap', function () {
         describe('when the validation is "success"', function () {
           beforeEach(_.partial(successSetup, 'user.name'));
 
+          it('should add the "has-feedback" class to the element"', expectHasFeedback);
           it('should add the "has-success" class to the element', expectHasSuccess);
           it('should remove the "has-error" class from the element', expectHasNoError);
           it('should remove the "has-warning" class from the element', expectHasNoWarning);
           it('should remove the "has-info" class from the element', expectHasNoInfo);
+        });
+
+        describe('when there are multiple validations', function () {
+          beforeEach(_.partial(successInfoSetup, 'user.name'));
+
+          it('should add the "has-feedback" class to the element"', expectHasFeedback);
+          it('should remove the "has-warning" class to the element', expectHasNoInfo);
+          it('should remove the "has-error" class from the element', expectHasNoError);
+          it('should remove the "has-warning" class from the element', expectHasNoWarning);
+          it('should remove the "has-success" class from the element', expectHasNoSuccess);
         });
       });
 
@@ -130,13 +149,21 @@ describe('afFieldWrap', function () {
         describe('when the validation is "error"', function () {
           beforeEach(_.partial(errorSetup, 'user.name'));
 
+          it('should add the "has-feedback" class', expectHasFeedback);
+          it('should add the "has-error" class', expectHasError);
           it('should remove the "has-success" class', expectHasNoSuccess);
+          it('should remove the "has-info" class', expectHasNoInfo);
+          it('should remove the "has-warning" class', expectHasNoWarning);
         });
 
         describe('when the validation is "success"', function () {
           beforeEach(_.partial(successSetup, 'user.name'));
 
+          it('should add the "has-feedback" class', expectHasFeedback);
           it('should add the "has-success" class', expectHasSuccess);
+          it('should remove the "has-info" class', expectHasNoInfo);
+          it('should remove the "has-warning" class', expectHasNoWarning);
+          it('should remove the "has-error" class', expectHasNoError);
         });
       });
 
@@ -144,13 +171,15 @@ describe('afFieldWrap', function () {
 
     describe('when it is not meant for this field wrap', function () {
 
-      it('should not add the "has-error" class', function () {
+      it('should not add the "has-error" and "has-feedback" class', function () {
         errorSetup.call(this, 'user.other');
+        expectHasNoFeedback.call(this);
         expectHasNoError.call(this);
       });
 
-      it('should not remove the "has-error" class', function () {
+      it('should not remove the "has-error" and "has-feedback" class', function () {
         noMessageSetup.call(this, 'user.other');
+        expectHasFeedback.call(this);
         expectHasError.call(this);
       });
     });

@@ -13,11 +13,13 @@ angular.module('angularFormMessagesExample')
             });
             attrs.$removeClass('has-feedback');
 
-            if (messageType) {
+            if (messageType && messages.length === 1) {
               attrs.$addClass('has-' + messageType.toLowerCase());
               attrs.$addClass('has-feedback');
             } else if (afSubmitCtrl.showSuccess) {
-              attrs.$addClass('has-success');
+              if (!messages.length) {
+                attrs.$addClass('has-success');
+              }
               attrs.$addClass('has-feedback');
             }
           }
