@@ -1,2 +1,2 @@
 angular
-  .module('angularFormMessagesExample', ['ngMessages', 'angularFormMessages']);
+  .module('angularFormMessagesExample', ['ngMessages', 'angularFormMessagesBootstrap']);

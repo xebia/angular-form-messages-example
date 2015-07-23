@@ -11,7 +11,7 @@ describe('the period directive', function () {
         'templates/periodDirective.html'
       )
       .mockDirectives(
-        'afError',
+        'afMessage',
         'afField',
         'afFieldWrap',
         'date'
