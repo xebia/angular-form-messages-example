@@ -23,14 +23,14 @@
         <fieldset af-field-wrap="user.personalinfo" field-state>
           <legend>Personal information</legend>
 
-          <af-error></af-error>
+          <div af-message></div>
 
           <!--<input type="text" ng-model="user.name"/>-->
           <div class="form-group" af-field-wrap="user.name" field-state>
             <label class="control-label col-md-2" for="name">Name*</label>
             <div class="col-md-4">
               <input type="text" class="form-control" id="name" name="name" ng-model="user.name" af-field name-length="3" required />
-              <div af-error></div>
+              <div af-message></div>
               <!--<pre>{{ userForm['user.name'] | json }}</pre>-->
             </div>
             <div class="col-md-6">{{user.name}}</div>
@@ -40,7 +40,7 @@
             <label class="control-label col-md-2" for="email">{{user.email}} E-mail*</label>
             <div class="col-md-4">
               <input type="email" class="form-control" id="email" name="email" ng-model="user.email" af-field required />
-              <div af-error></div>
+              <div af-message></div>
               <!--<pre>{{ userForm['user.email'] | json }}</pre>-->
             </div>
             <div class="col-md-6">{{user.email}}</div>
@@ -64,12 +64,12 @@
                   <input type="radio" id="other" name="user.gender" ng-model="user.gender" value="other" af-field required /> Other, namely:
                   <div af-field-wrap="user.otherGender" field-state>
                     <input type="text" class="form-control" name="user.otherGender" ng-model="user.otherGender" af-field af-trigger="user.gender === 'other'" ng-required="user.gender === 'other'" />
-                    <div af-error></div>
+                    <div af-message></div>
                     <!--<pre>{{userForm['user.otherGender'] | json}}</pre>-->
                   </div>
                 </label>
               </div>
-              <div af-error></div>
+              <div af-message></div>
             </div>
           </div>
 
@@ -79,7 +79,7 @@
               <select class="form-control" name="color" id="color" af-field ng-model="user.color" ng-options="value for (key, value) in {red: 'Red', blue: 'Blue', green: 'Green'}" required>
                 <option value=""></option>
               </select>
-              <div af-error></div>
+              <div af-message></div>
             </div>
             <div class="col-md-6">{{user.color}}</div>
           </div>
@@ -88,7 +88,7 @@
             <label class="control-label col-md-2" for="from">Period</label>
             <div class="col-md-4">
               <div name="period" id="period" period af-field ng-model="user.period"></div>
-              <div af-error></div>
+              <div af-message></div>
             </div>
             <div class="col-md-6">{{user.period}}</div>
           </div>
@@ -104,17 +104,19 @@
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-form-messages/src/afModule.js"></script>
-    <script src="bower_components/angular-form-messages/src/afError.js"></script>
+    <script src="bower_components/angular-form-messages/src/afMessage.js"></script>
+    <script src="bower_components/angular-form-messages/src/bootstrap/afFieldState.js"></script>
+    <script src="bower_components/angular-form-messages/src/bootstrap/afMessage.js"></script>
     <script src="bower_components/angular-form-messages/src/afField.js"></script>
     <script src="bower_components/angular-form-messages/src/afFieldWrap.js"></script>
     <script src="bower_components/angular-form-messages/src/afSubmit.js"></script>
     <script src="bower_components/angular-form-messages/src/afSubmitButton.js"></script>
+    <script src="bower_components/angular-form-messages/src/MessageService.js"></script>
+    <script src="bower_components/angular-form-messages/src/templateCache.js"></script>
 
     <script src="scripts/app.js"></script>
-    <script src="scripts/afErrorDirective.js"></script>
     <script src="scripts/dateDirective.js"></script>
     <script src="scripts/dateUtils.js"></script>
-    <script src="scripts/fieldStateDirective.js"></script>
     <script src="scripts/nameLengthDirective.js"></script>
     <script src="scripts/periodDirective.js"></script>
     <script src="scripts/userController.js"></script>
