@@ -3,9 +3,6 @@ angular.module('angularFormMessagesExample')
     return {
       restrict: 'A',
       require: 'ngModel',
-      scope: {
-        period: '=ngModel'
-      },
       templateUrl: 'templates/periodDirective.html',
       link: function ($scope, elem, attrs, ngModelCtrl) {
 
