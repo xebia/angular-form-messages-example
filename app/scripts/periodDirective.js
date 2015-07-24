@@ -28,12 +28,15 @@ angular.module('angularFormMessagesExample')
         });
 
         // Map UI onto $viewValue
-        $scope.$watch('[from, to]', function (newVal) {
+        $scope.$watch('[from, to]', function (newVal, oldVal) {
+          if (angular.equals(newVal, oldVal)) { return; }
+
           function validateDate(dateString) {
             if (dateString === undefined) { return; }
             return DateUtils.isDate(dateString) && moment(dateString, 'YYYY-MM-DD').isValid() ?
               dateString : undefined;
           }
+
           ngModelCtrl.$setViewValue({
             from: validateDate(newVal[0]),
             to: validateDate(newVal[1])
