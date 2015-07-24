@@ -29,7 +29,7 @@
           <div class="form-group" af-field-wrap="user.name" field-state>
             <label class="control-label col-md-2" for="name">Name*</label>
             <div class="col-md-4">
-              <input type="text" class="form-control" id="name" name="name" ng-model="user.name" af-field required />
+              <input type="text" class="form-control" id="name" name="name" ng-model="user.name" af-field name-length="3" required />
               <div af-error></div>
               <!--<pre>{{ userForm['user.name'] | json }}</pre>-->
             </div>
@@ -111,9 +111,11 @@
     <script src="bower_components/angular-form-messages/src/afSubmitButton.js"></script>
 
     <script src="scripts/app.js"></script>
+    <script src="scripts/afErrorDirective.js"></script>
     <script src="scripts/dateDirective.js"></script>
     <script src="scripts/dateUtils.js"></script>
     <script src="scripts/fieldStateDirective.js"></script>
+    <script src="scripts/nameLengthDirective.js"></script>
     <script src="scripts/periodDirective.js"></script>
     <script src="scripts/userController.js"></script>
 </body>

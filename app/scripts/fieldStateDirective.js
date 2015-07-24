@@ -3,11 +3,31 @@ angular.module('angularFormMessagesExample')
     return {
       require: '^afSubmit',
       link: function ($scope, elem, attrs, afSubmitCtrl) {
-        $scope.$on('validation', function onValidation(event, messageId, errors) {
+
+        // There can be multiple messages. We show the CSS class for the most severy message
+        function determineMessageType(messages) {
+          var severityIndex = 0;
+          angular.forEach(messages, function (message) {
+            var index = messageTypes.indexOf(message.type);
+            if (index > severityIndex) {
+              severityIndex = index;
+            }
+          });
+          return messageTypes[severityIndex];
+        }
+
+        var messageTypes = ['success', 'info', 'warning', 'error'];
+
+        $scope.$on('validation', function onValidation(event, messageId, messages) {
           if (messageId === attrs.afFieldWrap) {
-            attrs['$' + (errors.length ? 'add' : 'remove') + 'Class']('has-error');
-            if (afSubmitCtrl.showSuccess) {
-              attrs['$' + (errors.length ? 'remove' : 'add') + 'Class']('has-success');
+            angular.forEach(messageTypes, function (type) {
+              attrs.$removeClass('has-' + type);
+            });
+
+            if (messages.length) {
+              attrs.$addClass('has-' + determineMessageType(messages));
+            } else if (afSubmitCtrl.showSuccess) {
+              attrs.$addClass('has-success');
             }
           }
         });
