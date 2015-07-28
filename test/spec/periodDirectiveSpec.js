@@ -13,7 +13,6 @@ describe('the period directive', function () {
       .mockDirectives(
         'afMessage',
         'afField',
-        'afFieldWrap',
         'date'
       )
       .run();

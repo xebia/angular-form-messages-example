@@ -1,12 +1,12 @@
 <div class="row">
-  <div class="col-lg-6" af-field-wrap="from">
-    <label>From (YYYY-MM-DD) <input type="text" date class="form-control" name="from" af-field ng-model="from" /></label>
-    <div af-message></div>
+  <div class="col-lg-6">
+    <label>From (YYYY-MM-DD) <input type="text" date class="form-control" name="user.period.from" af-field ng-model="from" /></label>
+    <div af-message="user.period.from"></div>
     {{from}}
   </div>
-  <div class="col-lg-6" af-field-wrap="to">
-    <label>To (YYYY-MM-DD) <input type="text" date class="form-control" name="to" af-field ng-model="to" /></label>
-    <div af-message></div>
+  <div class="col-lg-6">
+    <label>To (YYYY-MM-DD) <input type="text" date class="form-control" name="user.period.to" af-field ng-model="to" /></label>
+    <div af-message="user.period.to"></div>
     {{to}}
   </div>
 </div>
