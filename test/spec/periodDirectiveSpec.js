@@ -1,9 +1,5 @@
 describe('the period directive', function () {
 
-  function getError(elem) {
-    return elem.controller('ngModel').$error;
-  }
-
   beforeEach(function () {
     mox
       .module(
@@ -21,11 +17,15 @@ describe('the period directive', function () {
     compileHtml('<div period ng-model="period" name="period"></div>');
   });
 
+  function checkError(error) {
+    expect(this.element.controller('ngModel').$error).toEqual(error);
+  }
+
   describe('validating the date and settings the model', function () {
 
     it('should validate when period is undefined or the "from" date or the "to" date is undefined', function () {
       // Period undefined
-      expect(this.element.controller('ngModel').$error).toEqual({});
+      checkError.call(this, {});
 
       // From undefined
       this.$scope.period = {
@@ -34,7 +34,7 @@ describe('the period directive', function () {
       };
       this.$scope.$digest();
       expect(this.$scope.period).toBeDefined();
-      expect(this.element.controller('ngModel').$error).toEqual({});
+      checkError.call(this, {});
 
       // To undefined
       this.$scope.period = {
@@ -43,7 +43,7 @@ describe('the period directive', function () {
       };
       this.$scope.$digest();
       expect(this.$scope.period).toBeDefined();
-      expect(this.element.controller('ngModel').$error).toEqual({});
+      checkError.call(this, {});
     });
 
     it('should validate when the "from" date or the "to" date is invalid', function () {
@@ -54,7 +54,7 @@ describe('the period directive', function () {
       };
       this.$scope.$digest();
       expect(this.$scope.period).toBeDefined();
-      expect(this.element.controller('ngModel').$error).toEqual({});
+      checkError.call(this, {});
 
       // To invalid
       this.$scope.period = {
@@ -63,7 +63,7 @@ describe('the period directive', function () {
       };
       this.$scope.$digest();
       expect(this.$scope.period).toBeDefined();
-      expect(this.element.controller('ngModel').$error).toEqual({});
+      checkError.call(this, {});
     });
 
     it('should validate when the "from" date is before the "to" date', function () {
@@ -73,7 +73,7 @@ describe('the period directive', function () {
       };
       this.$scope.$digest();
       expect(this.$scope.period).toBeDefined();
-      expect(this.element.controller('ngModel').$error).toEqual({});
+      checkError.call(this, {});
     });
 
     it('should invalidate when the "from" date is not before the "to" date', function () {
@@ -84,7 +84,7 @@ describe('the period directive', function () {
 
       this.$scope.$digest();
       expect(this.$scope.period).toBeUndefined();
-      expect(getError(this.element)).toEqual({ period: true });
+      checkError.call(this, { period: true });
 
       this.$scope.period = {
         from: '2014-02-03',
@@ -92,7 +92,7 @@ describe('the period directive', function () {
       };
       this.$scope.$digest();
       expect(this.$scope.period).toBeUndefined();
-      expect(getError(this.element)).toEqual({ period: true });
+      checkError.call(this, { period: true });
     });
   });
 });
