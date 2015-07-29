@@ -13,7 +13,8 @@ module.exports = function (config) {
       'bower_components/jasmine-mox-matchers/src/jasmine-mox-matchers.js',
       'bower_components/mox/dist/mox.js',
       'bower_components/angular-form-messages/src/afModule.js',
-      'bower_components/angular-form-messages/src/*.js',
+      'bower_components/angular-form-messages/src/bootstrap/afModule.js',
+      'bower_components/angular-form-messages/src/**/*.js',
 
       // Scripts
       'app/scripts/app.js',
