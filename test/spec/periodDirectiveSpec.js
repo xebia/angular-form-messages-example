@@ -14,8 +14,14 @@ describe('the period directive', function () {
       .run();
 
     createScope();
-    compileHtml('<div period ng-model="period" name="period"></div>');
+    addSelectors(compileHtml('<div period ng-model="period" name="period"></div>'), {
+      date: '[date]:eq({0})'
+    });
   });
+
+  function setDate(index, value) {
+    this.element.date(index).val(value).trigger('input');
+  }
 
   function checkError(error) {
     expect(this.element.controller('ngModel').$error).toEqual(error);
@@ -28,69 +34,48 @@ describe('the period directive', function () {
       checkError.call(this, {});
 
       // From undefined
-      this.$scope.period = {
-        from: undefined,
-        to: '2014-02-03'
-      };
-      this.$scope.$digest();
+      setDate.call(this, 1, '2014-02-03');
       expect(this.$scope.period).toBeDefined();
       checkError.call(this, {});
 
       // To undefined
-      this.$scope.period = {
-        from: '2014-02-03',
-        to: undefined
-      };
-      this.$scope.$digest();
+      setDate.call(this, 0, '2014-02-03');
+      setDate.call(this, 1, '');
+
       expect(this.$scope.period).toBeDefined();
       checkError.call(this, {});
     });
 
     it('should validate when the "from" date or the "to" date is invalid', function () {
       // From invalid
-      this.$scope.period = {
-        from: 'invalid date',
-        to: '2014-02-03'
-      };
-      this.$scope.$digest();
+      setDate.call(this, 0, 'invalid date');
+      setDate.call(this, 1, '2014-02-03');
       expect(this.$scope.period).toBeDefined();
       checkError.call(this, {});
 
       // To invalid
-      this.$scope.period = {
-        from: '2014-02-03',
-        to: 'invalid date'
-      };
-      this.$scope.$digest();
+      setDate.call(this, 0, '2014-02-03');
+      setDate.call(this, 1, 'invalid date');
       expect(this.$scope.period).toBeDefined();
       checkError.call(this, {});
     });
 
     it('should validate when the "from" date is before the "to" date', function () {
-      this.$scope.period = {
-        from: '2014-02-03',
-        to: '2014-02-04'
-      };
-      this.$scope.$digest();
+      this.element.date(0).val('2014-02-03').trigger('input');
+      this.element.date(1).val('2014-02-04').trigger('input');
       expect(this.$scope.period).toBeDefined();
       checkError.call(this, {});
     });
 
     it('should invalidate when the "from" date is not before the "to" date', function () {
-      this.$scope.period = {
-        from: '2014-02-03',
-        to: '2014-02-03'
-      };
+      setDate.call(this, 0, '2014-02-03');
+      setDate.call(this, 1, '2014-02-03');
 
-      this.$scope.$digest();
       expect(this.$scope.period).toBeUndefined();
       checkError.call(this, { period: true });
 
-      this.$scope.period = {
-        from: '2014-02-03',
-        to: '2014-02-02'
-      };
-      this.$scope.$digest();
+      this.element.date(0).val('2014-02-03').trigger('input');
+      this.element.date(1).val('2014-02-02').trigger('input');
       expect(this.$scope.period).toBeUndefined();
       checkError.call(this, { period: true });
     });
