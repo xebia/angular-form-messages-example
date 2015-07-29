@@ -90,6 +90,21 @@
             <div class="col-md-6"><pre ng-show="user.period">{{user.period}}</pre></div>
           </div>
 
+          <div class="form-group" field-state="user.food">
+            <label class="col-md-2 control-label">Favorite food</label>
+            <div class="col-md-4" af-field checkboxes-required name="user.food" ng-model="user.food">
+              <div class="checkbox" ng-repeat="foodItem in food">
+                <label>
+                  <input type="checkbox" af-field ng-model="user.food[foodItem]" ng-value="foodItem">
+                  {{foodItem}}
+                </label>
+              </div>
+              <div af-message="user.food"></div>
+            </div>
+            <div class="col-md-6"><pre ng-show="user.food">{{user.food}}</pre></div>
+          </div>
+
+
           <p>Form valid: {{userForm.$valid}}</p>
 
         </fieldset>
@@ -110,6 +125,7 @@
     <script src="bower_components/angular-form-messages/src/templateCache.js"></script>
 
     <script src="scripts/app.js"></script>
+    <script src="scripts/checkboxesRequiredDirective.js"></script>
     <script src="scripts/dateDirective.js"></script>
     <script src="scripts/dateUtils.js"></script>
     <script src="scripts/nameLengthDirective.js"></script>
