@@ -79,5 +79,13 @@ describe('the period directive', function () {
       expect(this.$scope.period).toBeUndefined();
       checkError.call(this, { period: true });
     });
+
+    it('should set the date fields when a period is set and validate', function () {
+      this.$scope.period = { from: '2014-02-03', to: '2014-02-04' };
+      this.$scope.$digest();
+      expect(this.element.date(0).val()).toBe('2014-02-03');
+      expect(this.element.date(1).val()).toBe('2014-02-04');
+      checkError.call(this, {});
+    });
   });
 });
