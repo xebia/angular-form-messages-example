@@ -103,11 +103,24 @@
             </div>
             <div class="col-md-6"><pre ng-show="user.food">{{user.food}}</pre></div>
           </div>
-
-
-          <p>Form valid: {{userForm.$valid}}</p>
-
         </fieldset>
+
+        <fieldset>
+          <legend>Friends</legend>
+          <button type="button" class="btn btn-default" ng-click="newFriend()"><i class="glyphicon glyphicon-plus"></i> New friend</button>
+          <div ng-form name="friendsForm" ng-repeat="friend in friends">
+            <div class="form-group" field-state="friend.name{{$index}}">
+              <label class="control-label col-md-2" for="friendName{{$index}}">Friend {{$index + 1}}*</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" id="friendName{{$index}}" name="friend.name{{$index}}" ng-model="friend.name" af-field required />
+                <div af-message="friend.name"></div>
+              </div>
+              <div class="col-md-6"><pre ng-show="friend.name">{{friend.name}}</pre></div>
+            </div>
+          </div>
+        </fieldset>
+
+        <p>Form valid: {{userForm.$valid}}</p>
       </form>
     </div>
 

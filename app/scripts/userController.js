@@ -3,6 +3,11 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
     name: 'Frank'
   };
   $scope.food = ['Meat', 'Fish', 'Vegetarian'];
+  $scope.friends = [{}];
+
+  $scope.newFriend = function () {
+    $scope.friends.push({});
+  };
 
   $scope.afterSubmit = function () {
     return $timeout(function () {
