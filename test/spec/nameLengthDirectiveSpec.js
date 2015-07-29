@@ -1,49 +1,46 @@
 describe('the nameLength directive', function () {
-  function getError(elem) {
-    return elem.find('[af-field]').controller('ngModel').$error;
+  function expectWarning(error, isValid) {
+    expect(this.element.controller('afField').setWarning).toHaveBeenCalledWith('nameLength', isValid);
+    expect(this.element.controller('ngModel').$error).toEqual(error);
   }
 
   beforeEach(function () {
     mox
       .module('angularFormMessagesExample')
+      .mockDirectives({
+        name: 'afField',
+        controller: function () {
+          this.setWarning = jasmine.createSpy('setWarning');
+        }
+      })
       .run();
 
     createScope();
-    compileHtml('<form af-submit><div af-field-wrap="name"><input name="name" name-length="3" af-field ng-model="name"></div></form>');
+    compileHtml('<input name="name" name-length="3" af-field ng-model="name">');
+    this.element.controller('afField').setWarning.calls.reset();
   });
 
-  it('should validate an empty name', function () {
-    this.$scope.name = '';
-    this.$scope.$digest();
-    expect(getError(this.element)).toEqual({});
+  describe('when the field is empty', function () {
 
-    delete this.$scope.name;
-    this.$scope.$digest();
-    expect(getError(this.element)).toEqual({});
+    it('should validate and remove the message type warning', function () {
+      this.element.val('').trigger('input');
+      expectWarning.call(this, {}, true);
+    });
   });
 
-  it('should invalidate input that is too short', function () {
-    this.$scope.name = 'xx';
-    this.$scope.$digest();
-    expect(getError(this.element)).toEqual({ nameLength: true });
+  describe('when the field has input that is too short', function () {
+
+    it('should invalidate and set the message type to warning', function () {
+      this.element.val('xx').trigger('input');
+      expectWarning.call(this, { nameLength: true }, false);
+    });
   });
 
-  it('should validate input that is long enough', function () {
-    this.$scope.name = 'xxx';
-    this.$scope.$digest();
-    expect(getError(this.element)).toEqual({});
-  });
+  describe('when the field has input that is long enough', function () {
 
-  it('should set the message type to warning', function () {
-    var afFieldCtrl = this.element.find('[af-field]').controller('afField');
-    spyOn(afFieldCtrl, 'setWarning');
-
-    this.$scope.name = 'x';
-    this.$scope.$digest();
-    expect(afFieldCtrl.setWarning).toHaveBeenCalledWith('nameLength', false);
-
-    this.$scope.name = '';
-    this.$scope.$digest();
-    expect(afFieldCtrl.setWarning).toHaveBeenCalledWith('nameLength', true);
+    it('should validate and remove the message type warning', function () {
+      this.element.val('xxx').trigger('input');
+      expectWarning.call(this, {}, true);
+    });
   });
 });

@@ -25,7 +25,7 @@
 
           <div af-message="user.personalinfo"></div>
 
-          <div class="form-group" field-state="user.name">
+          <div class="form-group" af-field-state="user.name" af-feedback="user.name">
             <label class="control-label col-md-2" for="name">Name*</label>
             <div class="col-md-4">
               <input type="text" class="form-control" id="name" name="user.name" ng-model="user.name" af-field name-length="3" required />
@@ -34,7 +34,7 @@
             <div class="col-md-6"><pre ng-show="user.name">{{user.name}}</pre></div>
           </div>
 
-          <div class="form-group" field-state="user.email">
+          <div class="form-group" af-field-state="user.email" af-feedback="user.email">
             <label class="control-label col-md-2" for="email">E-mail*</label>
             <div class="col-md-4">
               <input type="email" class="form-control" id="email" name="user.email" ng-model="user.email" af-field required />
@@ -43,7 +43,7 @@
             <div class="col-md-6"><pre ng-show="user.email">{{user.email}}</pre></div>
           </div>
 
-          <div class="form-group" field-state="user.gender">
+          <div class="form-group" af-field-state="user.gender" af-feedback="user.gender">
             <label for="male" class="control-label col-md-2">Gender*</label>
             <div class="col-md-4">
               <div class="radio">
@@ -59,7 +59,7 @@
               <div class="radio">
                 <label>
                   <input type="radio" id="other" name="user.gender" ng-model="user.gender" value="other" af-field required /> Other, namely:
-                  <div field-state="user.otherGender">
+                  <div af-field-state="user.otherGender" af-feedback="user.otherGender">
                     <input type="text" class="form-control" name="user.otherGender" ng-model="user.otherGender" af-field af-trigger="user.gender === 'other'" ng-required="user.gender === 'other'" />
                     <div af-message="user.otherGender"></div>
                   </div>
@@ -70,7 +70,7 @@
             <div class="col-md-6"><pre ng-show="user.gender">{{user.gender}} <span ng-show="user.otherGender">({{user.otherGender}})</span></pre></div>
           </div>
 
-          <div class="form-group" field-state="user.color">
+          <div class="form-group" af-field-state="user.color" af-feedback="user.color">
             <label class="control-label col-md-2" for="color">Favorite color*</label>
             <div class="col-md-4">
               <select class="form-control" name="user.color" id="color" af-field ng-model="user.color" ng-options="value for (key, value) in {red: 'Red', blue: 'Blue', green: 'Green'}" required>
@@ -81,7 +81,7 @@
             <div class="col-md-6"><pre ng-show="user.color">{{user.color}}</pre></div>
           </div>
 
-          <div class="form-group" field-state="user.period">
+          <div class="form-group" af-field-state="user.period" af-feedback="user.period">
             <label class="control-label col-md-2" for="from">Period</label>
             <div class="col-md-4">
               <div name="user.period" id="period" period af-field ng-model="user.period"></div>
@@ -90,7 +90,7 @@
             <div class="col-md-6"><pre ng-show="user.period">{{user.period}}</pre></div>
           </div>
 
-          <div class="form-group" field-state="user.food">
+          <div class="form-group" af-field-state="user.food" af-feedback="user.food">
             <label class="col-md-2 control-label">Favorite food</label>
             <div class="col-md-4" af-field checkboxes-required name="user.food" ng-model="user.food">
               <div class="checkbox" ng-repeat="foodItem in food">
@@ -109,11 +109,11 @@
           <legend>Friends</legend>
           <button type="button" class="btn btn-default" ng-click="newFriend()"><i class="glyphicon glyphicon-plus"></i> New friend</button>
           <div ng-form name="friendsForm" ng-repeat="friend in friends">
-            <div class="form-group" field-state="friend.name{{$index}}">
+            <div class="form-group" af-field-state="friend.name{{$index}}" af-feedback="friend.name{{$index}}">
               <label class="control-label col-md-2" for="friendName{{$index}}">Friend {{$index + 1}}*</label>
               <div class="col-md-4">
                 <input type="text" class="form-control" id="friendName{{$index}}" name="friend.name{{$index}}" ng-model="friend.name" af-field required />
-                <div af-message="friend.name"></div>
+                <div af-message="friend.name{{$index}}"></div>
               </div>
               <div class="col-md-6"><pre ng-show="friend.name">{{friend.name}}</pre></div>
             </div>
@@ -129,13 +129,15 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-form-messages/src/afModule.js"></script>
     <script src="bower_components/angular-form-messages/src/afMessage.js"></script>
+    <script src="bower_components/angular-form-messages/src/bootstrap/afModule.js"></script>
+    <script src="bower_components/angular-form-messages/src/bootstrap/afFeedback.js"></script>
     <script src="bower_components/angular-form-messages/src/bootstrap/afFieldState.js"></script>
     <script src="bower_components/angular-form-messages/src/bootstrap/afMessage.js"></script>
+    <script src="bower_components/angular-form-messages/src/bootstrap/templateCache.js"></script>
     <script src="bower_components/angular-form-messages/src/afField.js"></script>
     <script src="bower_components/angular-form-messages/src/afSubmit.js"></script>
     <script src="bower_components/angular-form-messages/src/afSubmitButton.js"></script>
     <script src="bower_components/angular-form-messages/src/MessageService.js"></script>
-    <script src="bower_components/angular-form-messages/src/templateCache.js"></script>
 
     <script src="scripts/app.js"></script>
     <script src="scripts/checkboxesRequiredDirective.js"></script>

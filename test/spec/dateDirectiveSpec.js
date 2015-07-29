@@ -1,11 +1,17 @@
 describe('the date directive', function () {
-  function getError(elem) {
-    return elem.controller('ngModel').$error;
+  function expectError(error) {
+    expect(this.element.controller('ngModel').$error).toEqual(error);
   }
 
   beforeEach(function () {
     mox
       .module('angularFormMessagesExample')
+      .mockServices('DateUtils')
+      .setupResults(function () {
+        return {
+          DateUtils: { isDate: false }
+        };
+      })
       .run();
 
     createScope();
@@ -13,24 +19,18 @@ describe('the date directive', function () {
   });
 
   it('should validate an empty date', function () {
-    this.$scope.date = '';
-    this.$scope.$digest();
-    expect(getError(this.element)).toEqual({});
-
-    delete this.$scope.date;
-    this.$scope.$digest();
-    expect(getError(this.element)).toEqual({});
+    this.element.val('').trigger('input');
+    expectError.call(this, {});
   });
 
   it('should invalidate input that is not a date', function () {
-    this.$scope.date = 'invalid date';
-    this.$scope.$digest();
-    expect(getError(this.element)).toEqual({ date: true });
+    this.element.val('invalid date').trigger('input');
+    expectError.call(this, { date: true });
   });
 
   it('should validate input that is a date', function () {
-    this.$scope.date = '2014-02-03';
-    this.$scope.$digest();
-    expect(getError(this.element)).toEqual({});
+    mox.get.DateUtils.isDate.and.returnValue(true);
+    this.element.val('2014-02-03').trigger('input');
+    expectError.call(this, {});
   });
 });
