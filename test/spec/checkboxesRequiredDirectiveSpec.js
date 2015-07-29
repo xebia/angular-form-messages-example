@@ -27,7 +27,6 @@ describe('the checkboxesRequired directive', function () {
   it('should validate when multiple checkboxes are checked', function () {
     this.element.secondCheckbox().click();
     this.element.firstCheckbox().click();
-    this.$scope.$digest();
     checkError.call(this, {});
   });
 
