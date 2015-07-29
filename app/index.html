@@ -59,7 +59,7 @@
               <div class="radio">
                 <label>
                   <input type="radio" id="other" name="user.gender" ng-model="user.gender" value="other" af-field required /> Other, namely:
-                  <div af-field-wrap="user.otherGender" field-state>
+                  <div field-state="user.otherGender">
                     <input type="text" class="form-control" name="user.otherGender" ng-model="user.otherGender" af-field af-trigger="user.gender === 'other'" ng-required="user.gender === 'other'" />
                     <div af-message="user.otherGender"></div>
                   </div>
