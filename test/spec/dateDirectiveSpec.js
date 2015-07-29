@@ -6,6 +6,12 @@ describe('the date directive', function () {
   beforeEach(function () {
     mox
       .module('angularFormMessagesExample')
+      .mockServices('DateUtils')
+      .setupResults(function () {
+        return {
+          DateUtils: { isDate: false }
+        };
+      })
       .run();
 
     createScope();
@@ -29,6 +35,7 @@ describe('the date directive', function () {
   });
 
   it('should validate input that is a date', function () {
+    mox.get.DateUtils.isDate.and.returnValue(true);
     this.$scope.date = '2014-02-03';
     this.$scope.$digest();
     expect(getError(this.element)).toEqual({});
