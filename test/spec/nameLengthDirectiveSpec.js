@@ -9,7 +9,7 @@ describe('the nameLength directive', function () {
       .run();
 
     createScope();
-    compileHtml('<form af-submit><div af-field-wrap="name"><input name="name" name-length="3" af-field ng-model="name"></div></form>');
+    compileHtml('<form af-submit><input name="name" name-length="3" af-field ng-model="name"></form>');
   });
 
   it('should validate an empty name', function () {
