@@ -12,7 +12,7 @@ angular.module('angularFormMessagesExample')
         ngModelCtrl.$validators.nameLength = function (modelValue, viewValue) {
           var value = modelValue || viewValue;
           var isValid = ngModelCtrl.$isEmpty(value) || value.length >= attrs.nameLength;
-          afFieldCtrl.setWarning('nameLength', isValid);
+          afFieldCtrl.setWarningDetails('nameLength', isValid);
           return isValid;
         };
       }
