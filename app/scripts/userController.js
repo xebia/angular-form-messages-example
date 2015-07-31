@@ -1,5 +1,13 @@
 angular.module('angularFormMessagesExample').controller('UserController', function ($q, $scope, $timeout) {
-  $scope.user = {};
+  $scope.user = {
+    name: 'Frank'
+  };
+  $scope.food = ['Meat', 'Fish', 'Vegetarian'];
+  $scope.friends = [{}];
+
+  $scope.newFriend = function () {
+    $scope.friends.push({});
+  };
 
   $scope.afterSubmit = function () {
     return $timeout(function () {

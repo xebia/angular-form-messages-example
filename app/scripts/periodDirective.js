@@ -6,11 +6,6 @@ angular.module('angularFormMessagesExample')
       templateUrl: 'templates/periodDirective.html',
       link: function ($scope, elem, attrs, ngModelCtrl) {
 
-        // Map model onto $viewValue
-        ngModelCtrl.$formatters.push(function (modelValue) {
-          return modelValue;
-        });
-
         // Map $viewValue onto UI
         ngModelCtrl.$render = function () {
           if (angular.isObject(ngModelCtrl.$viewValue)) {
@@ -18,14 +13,6 @@ angular.module('angularFormMessagesExample')
             $scope.to = ngModelCtrl.$viewValue.to;
           }
         };
-
-        // Map $viewValue onto $modelValue
-        ngModelCtrl.$parsers.push(function (viewValue) {
-          return {
-            from: viewValue.from,
-            to: viewValue.to
-          };
-        });
 
         // Map UI onto $viewValue
         $scope.$watch('[from, to]', function (newVal, oldVal) {
