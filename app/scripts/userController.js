@@ -1,6 +1,7 @@
 angular.module('angularFormMessagesExample').controller('UserController', function ($q, $scope, $timeout) {
   $scope.user = {
-    name: 'Frank'
+    name: 'Frank',
+    food: { Meat: true }
   };
   $scope.food = ['Meat', 'Fish', 'Vegetarian'];
   $scope.friends = [{}];
