@@ -1,6 +1,6 @@
 describe('the nameLength directive', function () {
   function expectWarning(error, isValid) {
-    expect(this.element.controller('afField').setWarning).toHaveBeenCalledWith('nameLength', isValid);
+    expect(this.element.controller('afField').setWarningDetails).toHaveBeenCalledWith('nameLength', isValid);
     expect(this.element.controller('ngModel').$error).toEqual(error);
   }
 
@@ -10,14 +10,14 @@ describe('the nameLength directive', function () {
       .mockDirectives({
         name: 'afField',
         controller: function () {
-          this.setWarning = jasmine.createSpy('setWarning');
+          this.setWarningDetails = jasmine.createSpy('setWarningDetails');
         }
       })
       .run();
 
     createScope();
     compileHtml('<input name="name" name-length="3" af-field ng-model="name">');
-    this.element.controller('afField').setWarning.calls.reset();
+    this.element.controller('afField').setWarningDetails.calls.reset();
   });
 
   describe('when the field is empty', function () {
