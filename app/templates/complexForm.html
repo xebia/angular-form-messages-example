@@ -1,0 +1,122 @@
+<h2>Complex form</h2>
+<form class="form-horizontal" af-submit="afterSubmit()" name="complexUserForm" af-trigger-on="blur" af-show-success="true" novalidate>
+  <fieldset>
+    <legend>Personal information</legend>
+
+    <div af-message="user.personalinfo"></div>
+
+    <div class="form-group" af-field-state af-feedback af-message-id="user.name">
+      <label class="control-label col-md-2" for="name">Name*</label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="name" name="user.name" ng-model="user.name" af-field af-trigger-on="change" name-length="3" required />
+        <div af-message="user.name"></div>
+      </div>
+      <div class="col-md-6"><pre ng-show="user.name">{{user.name}}</pre></div>
+    </div>
+
+    <div class="form-group" af-field-state af-feedback af-message-id="user.email">
+      <label class="control-label col-md-2" for="email">E-mail*</label>
+      <div class="col-md-4">
+        <input type="email" class="form-control" id="email" name="user.email" ng-model="user.email" af-field af-trigger-on="blur" />
+        <div af-message="user.email"></div>
+      </div>
+      <div class="col-md-6"><pre ng-show="user.email">{{user.email}}</pre></div>
+    </div>
+
+    <div class="form-group" af-field-state af-feedback af-message-id="user.gender">
+      <label for="male" class="control-label col-md-2">Gender*</label>
+      <div class="col-md-4">
+        <div class="radio">
+          <label>
+            <input type="radio" id="male" name="user.gender" ng-model="user.gender" value="male" af-field /> Male
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" id="female" name="user.gender" ng-model="user.gender" value="female" af-field /> Female
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" id="other" name="user.gender" ng-model="user.gender" value="other" af-field /> Other, namely:
+            <div af-field-state="user.otherGender" af-feedback="user.otherGender">
+              <input type="text" class="form-control" name="user.otherGender" ng-model="user.otherGender" af-field af-trigger="user.gender === 'other'" ng-required="user.gender === 'other'" />
+              <div af-message="user.otherGender"></div>
+            </div>
+          </label>
+        </div>
+        <div af-message="user.gender"></div>
+      </div>
+      <div class="col-md-6"><pre ng-show="user.gender">{{user.gender}} <span ng-show="user.otherGender">({{user.otherGender}})</span></pre></div>
+    </div>
+
+    <div class="form-group" af-field-state af-feedback af-message-id="user.color">
+      <label class="control-label col-md-2" for="color">Favorite color*</label>
+      <div class="col-md-4">
+        <select class="form-control" name="user.color" id="color" af-field ng-model="user.color" ng-options="value for (key, value) in {red: 'Red', blue: 'Blue', green: 'Green'}">
+          <option value=""></option>
+        </select>
+        <div af-message="user.color"></div>
+      </div>
+      <div class="col-md-6"><pre ng-show="user.color">{{user.color}}</pre></div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-md-2" for="to">Period</label>
+      <div class="col-md-4">
+        <div name="user.period" id="period" period af-field ng-model="user.period"></div>
+        <div af-message="user.period"></div>
+      </div>
+      <div class="col-md-6"><pre ng-show="user.period">{{user.period}}</pre></div>
+    </div>
+
+    <div class="form-group" af-field-state="user.food" af-feedback="user.food">
+      <label class="col-md-2 control-label">Favorite food</label>
+      <div class="col-md-4" af-field name="user.food" ng-model="user.food">
+        <div class="checkbox" ng-repeat="foodItem in food">
+          <label>
+            <input type="checkbox" ng-model="user.food[foodItem]" ng-value="foodItem">
+            {{foodItem}}
+          </label>
+        </div>
+        <div af-message="user.food"></div>
+      </div>
+      <div class="col-md-6"><pre ng-show="user.food">{{user.food}}</pre></div>
+    </div>
+
+    <div class="form-group" af-field-state="user.agree" af-feedback="user.agree">
+      <label class="col-md-2 control-label">Agreement</label>
+      <div class="col-md-4">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" af-field name="user.agree" ng-model="user.agree">
+            I agree
+          </label>
+        </div>
+        <div af-message="user.agree"></div>
+      </div>
+      <div class="col-md-6"><pre ng-show="user.agree">{{user.agree}}</pre></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Friends</legend>
+    <button type="button" class="btn btn-default" ng-click="newFriend()"><i class="glyphicon glyphicon-plus"></i> New friend</button>
+    <div ng-form name="friendsForm{{$index}}" ng-repeat="friend in user.friends">
+      <div class="form-group" af-field-state af-feedback af-message-id="friend.name">
+        <label class="control-label col-md-2" for="friendName{{$index}}">Friend {{$index + 1}}*</label>
+        <div class="col-md-4">
+          <input type="text" class="form-control" id="friendName{{$index}}" name="friend.name" ng-model="friend.name" af-field />
+          <div af-message="friend.name"></div>
+        </div>
+        <div class="col-md-6"><pre ng-show="friend.name">{{friend.name}}</pre></div>
+      </div>
+    </div>
+  </fieldset>
+
+  <p>
+    <button type="submit" class="btn btn-primary" af-submit-button>Submit</button>
+    <span ng-show="isSubmitting" class="spinner"></span>
+  </p>
+
+</form>

@@ -8,10 +8,8 @@ describe('UserController', function () {
       .run();
 
     createScope();
-    createController('UserController', this.$scope);
-    inject(function (_$timeout_) {
-      $timeout = _$timeout_;
-    });
+    createController('UserController');
+    $timeout = mox.inject('$timeout');
   });
 
   it('should have a user on the scope', function () {
@@ -23,13 +21,13 @@ describe('UserController', function () {
   });
 
   it('should have one (non-defined) friend on the scope', function () {
-    expect(this.$scope.friends).toEqual([{}]);
+    expect(this.$scope.user.friends).toEqual([{}]);
   });
 
   describe('the newFriend method', function () {
     it('should add a new object to the friends array', function () {
       this.$scope.newFriend();
-      expect(this.$scope.friends).toEqual([{}, {}]);
+      expect(this.$scope.user.friends).toEqual([{}, {}]);
     });
   });
 
