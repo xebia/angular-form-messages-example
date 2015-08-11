@@ -1,61 +1,22 @@
-describe('the translateService', function () {
-  var TranslateService;
+describe('the $translate service', function () {
+  var $translate;
 
   beforeEach(function () {
     mox
       .module('angularFormMessagesExample')
       .run();
 
-    TranslateService = mox.inject('TranslateService');
-  });
-
-  describe('the getLabel() method', function () {
-    it('should return the translation for a key', function () {
-      expect(TranslateService.getLabel('required')).toBe('This field is required');
-    });
-
-    it('should return undefined when the translate cannot be found', function () {
-      expect(TranslateService.getLabel('not existing')).toBeUndefined();
-    });
-  });
-
-  describe('the hasLabel() method', function () {
-    it('should return true when the label exists', function () {
-      expect(TranslateService.hasLabel('required')).toBe(true);
-    });
-
-    it('should return false when the label no exists', function () {
-      expect(TranslateService.hasLabel('not existing')).toBe(false);
-    });
-  });
-});
-
-describe('the translate filter', function () {
-  var translateFilter;
-
-  beforeEach(function () {
-    mox
-      .module('angularFormMessagesExample')
-      .mockServices('TranslateService')
-      .setupResults(function () {
-        return {
-          TranslateService: { getLabel: 'label' }
-        };
-      })
-      .run();
-
-    translateFilter = mox.inject('translateFilter');
+    $translate = mox.inject('$translate');
   });
 
   it('should return the translation for a key', function () {
-    expect(translateFilter('required')).toBe('label');
+    expect($translate('required')).toResolveWith('This field is required');
   });
 
   it('should return the key when the translate cannot be found', function () {
-    mox.get.TranslateService.getLabel.and.returnValue(undefined);
-    expect(translateFilter('not existing')).toBe('not existing');
-    expect(mox.get.TranslateService.getLabel).toHaveBeenCalledWith('not existing');
+    expect($translate('not existing')).toRejectWith('not existing');
   });
+
 });
 
 describe('the translate directive', function () {
@@ -63,12 +24,13 @@ describe('the translate directive', function () {
     mox
       .module('angularFormMessagesExample')
       .mockServices(
-        'translateFilter',
-        'TranslateService'
+        '$translate'
       )
       .setupResults(function () {
         return {
-          translateFilter: 'Required translation'
+          $translate: function (key) {
+            return key === 'required' ? promise('Required translation') : reject(key);
+          }
         };
       })
       .run();
@@ -79,11 +41,11 @@ describe('the translate directive', function () {
 
   it('should use the translateFilter to replace the contents of the element with the translation', function () {
     expect(this.element).toHaveText('Required translation');
-    expect(mox.get.translateFilter).toHaveBeenCalledWith('required');
+    expect(mox.get.$translate).toHaveBeenCalledWith('required');
   });
 
   it('should not evaluate the translate attribute', function () {
     compileHtml('<span translate="true"></span>');
-    expect(mox.get.translateFilter).toHaveBeenCalledWith('true');
+    expect(mox.get.$translate).toHaveBeenCalledWith('true');
   });
 });

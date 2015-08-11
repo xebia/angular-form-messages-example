@@ -12,6 +12,8 @@
     "createScope": false,
     "getMockData": false,
     "inject": false,
-    "mox": false
+    "mox": false,
+    "promise": false,
+    "reject": false
   }
 }
