@@ -1,6 +1,6 @@
 {
   "validation": {
-    "userForm": {
+    "complexUserForm": {
       "user.personalinfo": [
         {
           "message": "There is something wrong with the personal information",
@@ -33,6 +33,14 @@
         {
           "message": "User email server side warning",
           "type": "WARNING"
+        }
+      ]
+    },
+    "friendsForm1": {
+      "friend.name": [
+        {
+          "message": "Friend 2 has a wrong name",
+          "type": "ERROR"
         }
       ]
     }
