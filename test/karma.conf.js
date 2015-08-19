@@ -12,9 +12,8 @@ module.exports = function (config) {
       'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
       'bower_components/jasmine-mox-matchers/src/jasmine-mox-matchers.js',
       'bower_components/mox/dist/mox.js',
-      'bower_components/angular-form-messages/src/afModule.js',
-      'bower_components/angular-form-messages/src/bootstrap/afModule.js',
-      'bower_components/angular-form-messages/src/**/*.js',
+      'bower_components/angular-form-messages/dist/angular-form-messages.js',
+      'bower_components/angular-form-messages/dist/angular-form-messages-bootstrap.js',
 
       // Scripts
       'app/scripts/app.js',
