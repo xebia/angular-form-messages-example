@@ -18,8 +18,8 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
           userForm: {
             'user.name': [{ message: 'User name server side info', type: 'INFO' }],
             'user.email': [
-              { message: 'User email server side error', type: 'ERROR' },
-              { message: 'User email server side warning', type: 'WARNING' }
+              { message: 'User email server side warning', type: 'WARNING' },
+              { message: 'User email server side error', type: 'ERROR' }
             ]
           }
         }

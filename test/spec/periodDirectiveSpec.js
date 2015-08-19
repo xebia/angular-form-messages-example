@@ -7,10 +7,10 @@ describe('the period directive', function () {
         'templates/periodDirective.html'
       )
       .mockDirectives(
-        'afMessage',
         'afField',
         'afFeedback',
         'afFieldState',
+        'afMessages',
         'date'
       )
       .run();
