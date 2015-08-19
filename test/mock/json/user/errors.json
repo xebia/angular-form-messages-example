@@ -1,6 +1,12 @@
 {
   "validation": {
     "complexUserForm": {
+      "$messages": [
+        {
+          "message": "There are errors on the form",
+          "type": "WARNING"
+        }
+      ],
       "user.personalinfo": [
         {
           "message": "There is something wrong with the personal information",
@@ -27,12 +33,12 @@
       ],
       "user.email": [
         {
-          "message": "User email server side error",
-          "type": "ERROR"
-        },
-        {
           "message": "User email server side warning",
           "type": "WARNING"
+        },
+        {
+          "message": "User email server side error",
+          "type": "ERROR"
         }
       ]
     },

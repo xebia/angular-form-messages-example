@@ -32,14 +32,14 @@ describe('UserController', function () {
     });
   });
 
-  describe('the submit callback', function () {
+  describe('the submit callback for the simple form', function () {
     it('should return a failing promise with errors', function () {
       var result = this.$scope.afterSubmit();
       $timeout.flush(2000);
 
       expect(result).toRejectWith({
         validation: {
-          userForm: _.pick(getMockData('user/errors.json').validation.complexUserForm, 'user.name', 'user.email')
+          userForm: _.pick(getMockData('user/errors.json').validation.complexUserForm, '$messages', 'user.name', 'user.email')
         }
       });
     });
