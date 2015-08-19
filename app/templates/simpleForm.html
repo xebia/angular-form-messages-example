@@ -1,13 +1,16 @@
 <h2>Simple form</h2>
 <form class="form-horizontal" af-submit="afterSubmit()" name="userForm" novalidate>
+
+  <div af-messages></div>
+
   <fieldset>
     <legend>Personal information</legend>
 
     <div class="form-group" af-field-state af-feedback af-message-id="user.name">
       <label class="control-label col-md-2" for="name">Name*</label>
       <div class="col-md-4">
-        <input type="text" class="form-control" id="name" name="user.name" ng-model="user.name" af-field name-length="3" required ng-change="test()" />
-        <div af-message="user.name"></div>
+        <input type="text" class="form-control" id="name" name="user.name" ng-model="user.name" af-field name-length="3" required />
+        <div af-messages="user.name"></div>
       </div>
       <div class="col-md-6"><pre ng-show="user.name">{{user.name}}</pre></div>
     </div>
@@ -16,18 +19,18 @@
       <label class="control-label col-md-2" for="email">E-mail*</label>
       <div class="col-md-4">
         <input type="email" class="form-control" id="email" name="user.email" ng-model="user.email" af-field required />
-        <div af-message="user.email"></div>
+        <div af-messages="user.email"></div>
       </div>
       <div class="col-md-6"><pre ng-show="user.email">{{user.email}}</pre></div>
     </div>
 
     <div class="form-group" af-field-state af-feedback af-message-id="user.color">
-      <label class="control-label col-md-2" for="color">Favorite color*</label>
+      <label class="control-label col-md-2" for="color">Favorite color</label>
       <div class="col-md-4">
         <select class="form-control" name="user.color" id="color" af-field ng-model="user.color" ng-options="value for (key, value) in {red: 'Red', blue: 'Blue', green: 'Green'}">
           <option value=""></option>
         </select>
-        <div af-message="user.color"></div>
+        <div af-messages="user.color"></div>
       </div>
       <div class="col-md-6"><pre ng-show="user.color">{{user.color}}</pre></div>
     </div>
