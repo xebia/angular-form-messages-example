@@ -8,7 +8,7 @@ This is an example project that demonstrates [Angular Form Messages](http://www.
 
 ## Installation
 
-run `npm install`.
+Run `npm install`.
 
 ## Build & development
 
