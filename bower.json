@@ -1,5 +1,6 @@
 {
   "name": "angular-form-messages-example",
+  "main": "app.js",
   "version": "0.11.0",
   "dependencies": {
     "angular": "1.4",
