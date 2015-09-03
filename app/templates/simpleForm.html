@@ -1,7 +1,7 @@
 <h2>Simple form</h2>
 <form class="form-horizontal" af-submit="afterSubmit()" name="userForm" novalidate>
 
-  <div af-messages></div>
+  <div af-messages af-alert></div>
 
   <fieldset>
     <legend>Personal information</legend>
@@ -44,7 +44,7 @@
             I agree
           </label>
         </div>
-        <div af-message="user.agree"></div>
+        <div af-messages="user.agree"></div>
       </div>
       <div class="col-md-6"><pre ng-show="user.agree">{{user.agree}}</pre></div>
     </div>
