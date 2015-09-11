@@ -6,7 +6,7 @@ angular.module('angularFormMessagesExample')
       link: function ($scope, element, attrs, ngModelCtrl) {
 
         // Map UI onto $viewValue by explicitely change it, because render does no deep watch
-        $scope.$watchCollection(ngModelCtrl.$name, function (newVal, oldVal) {
+        $scope.$watchCollection(attrs.ngModel, function (newVal, oldVal) {
           if (angular.equals(newVal, oldVal)) { return; }
           ngModelCtrl.$setViewValue(angular.extend({}, newVal));
         });

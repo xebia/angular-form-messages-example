@@ -6,7 +6,7 @@ describe('the checkboxesRequired directive', function () {
       .run();
 
     createScope();
-    addSelectors(compileHtml('<div checkboxes-required ng-model="food" name="food">' +
+    addSelectors(compileHtml('<div checkboxes-required ng-model="food" name="foodField">' +
                   '<input type="checkbox" ng-model="food.first" name="food.first">' +
                   '<input type="checkbox" ng-model="food.second" name="food.second">' +
                 '</div>'), {
