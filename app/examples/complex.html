@@ -28,19 +28,19 @@
       <div class="col-md-4">
         <div class="radio">
           <label>
-            <input type="radio" id="male" name="user.gender" ng-model="complexUser.gender" value="male" af-field /> Male
+            <input type="radio" id="male" name="user.gender" ng-model="complexUser.gender" value="male" af-field af-trigger-on="change" required /> Male
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" id="female" name="user.gender" ng-model="complexUser.gender" value="female" af-field /> Female
+            <input type="radio" id="female" name="user.gender" ng-model="complexUser.gender" value="female" af-field af-trigger-on="change" required /> Female
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" id="other" name="user.gender" ng-model="complexUser.gender" value="other" af-field /> Other, namely:
-            <div af-field-state="user.otherGender" af-feedback="user.otherGender">
-              <input type="text" class="form-control" name="user.otherGender" ng-model="complexUser.otherGender" af-field af-trigger="user.gender === 'other'" ng-required="user.gender === 'other'" />
+            <input type="radio" id="other" name="user.gender" ng-model="complexUser.gender" value="other" af-field af-trigger-on="change" required /> Other, namely:
+            <div af-field-state="user.otherGender">
+              <input type="text" class="form-control" name="user.otherGender" ng-model="complexUser.otherGender" af-field af-trigger-on="change" af-trigger="complexUser.gender === 'other'" ng-required="complexUser.gender === 'other'" />
               <div af-messages="user.otherGender"></div>
             </div>
           </label>
@@ -72,7 +72,8 @@
 
     <div class="form-group" af-field-state="user.food" af-feedback="user.food">
       <label class="col-md-2 control-label">Favorite food</label>
-      <div class="col-md-4" af-field name="user.food" ng-model="complexUser.food">
+      {{complexUserForm['user.food'].$error}}
+      <div class="col-md-4" af-field name="user.food" ng-model="complexUser.food" checkboxes-required af-trigger-on="change">
         <div class="checkbox" ng-repeat="foodItem in food">
           <label>
             <input type="checkbox" ng-model="complexUser.food[foodItem]" ng-value="foodItem">

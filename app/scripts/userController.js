@@ -11,7 +11,7 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
     $scope.complexUser.friends.push({});
   };
 
-  $scope.afterSubmit = function () {
+  $scope.submitSimple = function () {
     return $timeout(function () {
       return $q.reject({
         validation: {
@@ -25,29 +25,35 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
           }
         }
       });
-    }, 2000);
+    }, 1000);
   };
 
-  $scope.afterSubmitComplex = function () {
+  $scope.submitTrigger = function () {
     return $timeout(function () {
       return $q.reject({
         validation: {
-          complexUserForm: {
+          triggerForm: {
             $messages: [{ message: 'There are errors on the form', type: 'WARNING' }],
             'user.personalinfo': [{ message: 'There is something wrong with the personal information', type: 'ERROR' }],
-            address: [{ message: 'Cannot locate address geo', type: 'ERROR' }],
-            'user.gender': [{ message: 'Gender server side success', type: 'SUCCESS' }],
             'user.name': [{ message: 'User name server side info', type: 'INFO' }],
             'user.email': [
               { message: 'User email server side warning', type: 'WARNING' },
               { message: 'User email server side error', type: 'ERROR' }
-            ]
-          },
-          friendsForm1: {
-            'friend.name': [{ message: 'Friend 2 has a wrong name', type: 'ERROR' }]
+            ],
+            'user.gender': [{ message: 'Gender server side success', type: 'SUCCESS' }]
           }
         }
       });
-    }, 2000);
+    }, 1000);
+  };
+
+  $scope.afterSubmitRepeating = function () {
+    return $timeout(function () {
+      return $q.reject({
+        friendsForm1: {
+          'friend.name': [{ message: 'Friend 2 has a wrong name', type: 'ERROR' }]
+        }
+      });
+    }, 1000);
   };
 });
