@@ -1,3 +1,4 @@
+<h2>Trigger on blur</h2>
 <div class="row">
   <div class="col-lg-4">
 
@@ -10,8 +11,8 @@
   </div>
 
   <div class="col-lg-8">
-    <h2>Trigger on blur</h2>
-    <form class="form-horizontal" af-submit="submitSimple()" name="userForm" af-trigger-on="blur" novalidate>
+    <!-- create new scope so that forms do not send messages to each other-->
+    <form class="form-horizontal" af-submit="submitSimple()" name="userForm" af-trigger-on="blur" ng-if="true" novalidate>
       <div af-messages af-alert></div>
 
       <fieldset>
@@ -70,15 +71,16 @@
   </div>
 </div>
 <hr/>
-<div class="row" ng-if="false">
+<h2>Trigger per field</h2>
+<div class="row">
   <div class="col-lg-4">
     <p>Now the <code>af-trigger-on</code> attribute is set to 'change' on <strong>Gender</strong> and <strong>Gender Other</strong> fields to override the form trigger configuration ('submit').</p>
     <p>Futhermore the <code>af-trigger</code> attribute is set on this field so that the validation is triggered when the <strong>Gender</strong> radio changes.</p>
   </div>
 
   <div class="col-lg-8">
-    <h2>Trigger per field</h2>
-    <form class="form-horizontal" af-submit="submitTrigger()" name="triggerForm" af-trigger-on="submit" novalidate>
+    <!-- create new scope so that forms do not send messages to each other-->
+    <form class="form-horizontal" af-submit="submitTrigger()" name="triggerForm" af-trigger-on="change" ng-if="true" novalidate>
       <div af-messages af-alert></div>
 
       <fieldset>

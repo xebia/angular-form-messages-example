@@ -1,7 +1,8 @@
+<h2>Simple form</h2>
 <div class="row">
   <div class="col-lg-4">
 
-    <p>This is a simple form, extended with Angular Form Messages directives.</p>
+    <p>This is a simple Bootstrap form, extended with Angular Form Messages directives.</p>
     <ul>
       <li>All fields are required</li>
       <li>Added <code>af-submit</code> to the form for handling the submit callback when the form is valid. The submit callback returns a rejecting promise with 'server side' errors.</li>
@@ -20,7 +21,6 @@
   </div>
 
   <div class="col-lg-8">
-    <h2>Simple form</h2>
     <form class="form-horizontal" af-submit="submitSimple()" name="userForm" novalidate>
       <div af-messages af-alert></div>
 
