@@ -1,0 +1,48 @@
+<h2>Custom directives</h2>
+<div class="row">
+  <div class="col-lg-4">
+    <p>Angular Form Messages is not designed to be a complete form generator solution such as Angular Formly.</p>
+    <p>Nevertheless this gives a lot of freedom to have custom validation and custom directives to show validation messages.</p>
+    <h3>Period</h3>
+    <p>The <code>period</code> directive validates two date fields. The <strong>From</strong> date must before the <strong>To</strong> date.</p>
+    <p>When one of the dates is invalid, the <code>period</code> directives is valid, but the inner <code>date</code> directives invalidate.</p>
+    <h3>Food</h3>
+    <p>The checkboxes have a <code>checkboxes-required</code> directive added that validate if one or more checkboxes are selected.</p>
+  </div>
+  <div class="col-lg-8">
+    <form class="form-horizontal" af-submit="submitCustom()" name="userForm" novalidate>
+      <fieldset>
+        <legend>Preferences</legend>
+
+        <div class="form-group" af-field-state="user.period">
+          <label class="control-label col-md-2" for="to">Period</label>
+          <div class="col-md-4">
+            <div name="user.period" id="period" period af-field ng-model="user.period"></div>
+            <div af-messages="user.period"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user.period">{{user.period}}</pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.food">
+          <label class="col-md-2 control-label">Favorite food</label>
+          <div class="col-md-4" af-field name="user.food" ng-model="user.food" checkboxes-required>
+            <div class="checkbox" ng-repeat="foodItem in food">
+              <label>
+                <input type="checkbox" ng-model="user.food[foodItem]" ng-value="foodItem">
+                {{foodItem}}
+              </label>
+            </div>
+            <div af-messages="user.food"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user.food">{{user.food}}</pre></div>
+        </div>
+      </fieldset>
+
+      <p>
+        <button type="submit" class="btn btn-primary" af-submit-button>Submit</button>
+        <span ng-show="isSubmitting" class="spinner"></span>
+      </p>
+
+    </form>
+  </div>
+</div>

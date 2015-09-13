@@ -10,6 +10,9 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
   $scope.newFriend = function () {
     $scope.complexUser.friends.push({});
   };
+  $scope.removeFriend = function (i) {
+    $scope.complexUser.friends.splice(i, 1);
+  };
 
   $scope.submitSimple = function () {
     return $timeout(function () {
@@ -34,7 +37,6 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
         validation: {
           triggerForm: {
             $messages: [{ message: 'There are errors on the form', type: 'WARNING' }],
-            'user.personalinfo': [{ message: 'There is something wrong with the personal information', type: 'ERROR' }],
             'user.name': [{ message: 'User name server side info', type: 'INFO' }],
             'user.email': [
               { message: 'User email server side warning', type: 'WARNING' },
@@ -47,11 +49,25 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
     }, 1000);
   };
 
-  $scope.afterSubmitRepeating = function () {
+  $scope.submitRepeating = function () {
     return $timeout(function () {
       return $q.reject({
-        friendsForm1: {
-          'friend.name': [{ message: 'Friend 2 has a wrong name', type: 'ERROR' }]
+        validation: {
+          friendsForm1: {
+            'friend.name': [{ message: 'Friend 2 has a wrong name', type: 'ERROR' }]
+          }
+        }
+      });
+    }, 1000);
+  };
+
+  $scope.submitCustom = function () {
+    return $timeout(function () {
+      return $q.reject({
+        validation: {
+          userForm: {
+            'user.food': [{ message: 'Sorry, this food is not available', type: 'ERROR' }]
+          }
         }
       });
     }, 1000);

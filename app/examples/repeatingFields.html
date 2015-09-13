@@ -1,0 +1,36 @@
+<h2>Repeating fields</h2>
+<div class="row">
+  <div class="col-lg-4">
+    <p>Form elements that are dynamically created using an <code>ng-repeat</code> and <code>ng-form</code>s are supported by Angular Form Messages. Even evaluated <code>name</code> attributes a no problem.</p>
+  </div>
+  <div class="col-lg-8">
+    <form class="form-horizontal" af-submit="submitRepeating()" name="userForm" novalidate>
+
+      <fieldset>
+        <legend>Friends</legend>
+        <div ng-form name="friendsForm{{$index}}" ng-repeat="friend in complexUser.friends" ng-init="friend.id = $index + 1">
+          <div class="form-group" af-field-state af-feedback af-field-name="friend.name">
+            <label class="control-label col-md-2" for="friendName{{$index}}">
+              <a href ng-click="removeFriend($index)">
+                <i aria-hidden="true" class="glyphicon glyphicon-trash"></i>
+              </a>
+              Friend {{friend.id}}*
+            </label>
+            <div class="col-md-4">
+              <input type="text" class="form-control" id="friendName{{$index}}" name="friend.name" ng-model="friend.name" af-field required />
+              <div af-messages="friend.name"></div>
+            </div>
+            <div class="col-md-6"><pre ng-show="friend.name">{{friend.name}}</pre></div>
+          </div>
+        </div>
+      </fieldset>
+
+      <p>
+        <button type="submit" class="btn btn-primary" af-submit-button>Submit</button>
+        <span ng-show="isSubmitting" class="spinner"></span>
+        <button type="button" class="btn btn-default" ng-click="newFriend()"><i class="glyphicon glyphicon-plus"></i> New friend</button>
+      </p>
+
+    </form>
+  </div>
+</div>
