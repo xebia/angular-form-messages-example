@@ -9,5 +9,5 @@ angular
       .when('/triggers', { templateUrl: 'examples/triggers.html', name: 'Triggers setting' })
       .when('/repeating-fields', { templateUrl: 'examples/repeatingFields.html', name: 'Repeating fields' })
       .when('/custom', { templateUrl: 'examples/customDirectives.html', name: 'Custom directives' })
-    ;
+      .otherwise('/simple');
   });
