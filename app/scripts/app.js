@@ -7,6 +7,7 @@ angular
     $routeProvider
       .when('/simple', { templateUrl: 'examples/simple.html', name: 'Simple form' })
       .when('/triggers', { templateUrl: 'examples/triggers.html', name: 'Triggers setting' })
-      .when('/complex', { templateUrl: 'examples/complex.html', name: 'Complex form' })
+      .when('/repeating-fields', { templateUrl: 'examples/repeatingFields.html', name: 'Repeating fields' })
+      .when('/custom', { templateUrl: 'examples/customDirectives.html', name: 'Custom directives' })
     ;
   });
