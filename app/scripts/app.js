@@ -6,6 +6,7 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/simple', { templateUrl: 'examples/simple.html', name: 'Simple form' })
+      .when('/feedback', { templateUrl: 'examples/feedback.html', name: 'Feedback icons' })
       .when('/show-success', { templateUrl: 'examples/showSuccess.html', name: 'Show success' })
       .when('/triggers', { templateUrl: 'examples/triggers.html', name: 'Triggers setting' })
       .when('/repeating-fields', { templateUrl: 'examples/repeatingFields.html', name: 'Repeating fields' })
