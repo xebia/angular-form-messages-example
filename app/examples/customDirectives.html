@@ -3,6 +3,9 @@
   <div class="col-lg-4">
     <p>Angular Form Messages is not designed to be a complete form generator solution such as Angular Formly.</p>
     <p>Nevertheless this gives a lot of freedom to have custom validation and custom directives to show validation messages.</p>
+    <h3>Name</h3>
+    <p>Added a custom <code>name-length</code> directive on the name field to show an extra validation when the length is less than 3 characters</p>
+    <p>Check the console and translate.js to understand why the <code>nameLength</code> label is not resolved.</p>
     <h3>Period</h3>
     <p>The <code>period</code> directive validates two date fields. The <strong>From</strong> date must be before the <strong>To</strong> date.</p>
     <p>When one of the dates is invalid, the <code>period</code> directives is valid, but the inner <code>date</code> directives invalidate.</p>
@@ -13,6 +16,15 @@
     <form class="form-horizontal" af-submit="submitCustom()" name="userForm" novalidate>
       <fieldset>
         <legend>Preferences</legend>
+
+        <div class="form-group" af-field-state="user.name">
+          <label class="control-label col-md-2" for="name">Name*</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control" id="name" name="user.name" ng-model="user.name" name-length="3" af-field required />
+            <div af-messages="user.name"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user.name">{{user.name}}</pre></div>
+        </div>
 
         <div class="form-group" af-field-state="user.period">
           <label class="control-label col-md-2" for="to">Period</label>

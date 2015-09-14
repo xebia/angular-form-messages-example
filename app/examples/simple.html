@@ -9,14 +9,11 @@
       <li>Added <code>no-validate</code> to the form so that default browser validation is disabled.</li>
       <li>Added <code>af-field</code> directives on the form elements to extend ngModel</li>
       <li>Added <code>af-field-state</code> directives on the form groups to show for example a 'has-error' class when the form is invalid</li>
-      <li>Added <code>af-feedback</code> on the form groups to show an feedback icon in the two input fields.</li>
       <li>Added <code>af-messages</code> divs next to the form elements to show the message</li>
       <li>Added <code>af-messages</code> div with <code>af-alert</code> attribute for messages that belong to the form, not to a specific field.</li>
-      <li>Added a custom <code>name-length</code> directive on the name field to show an extra validation when the length is less than 3 characters</li>
       <li>Added <code>af-submit-button</code> that is disabled while submitting</li>
       <li>Showing a spinner while submitting</li>
       <li>Validation is triggered by the default value: 'change'</li>
-      <li>Check the console and translate.js for the labels</li>
     </ul>
   </div>
 
@@ -27,16 +24,16 @@
       <fieldset>
         <legend>Personal information</legend>
 
-        <div class="form-group" af-field-state af-feedback af-field-name="user.name">
+        <div class="form-group" af-field-state="user.name">
           <label class="control-label col-md-2" for="name">Name*</label>
           <div class="col-md-4">
-            <input type="text" class="form-control" id="name" name="user.name" ng-model="user.name" af-field name-length="3" required />
+            <input type="text" class="form-control" id="name" name="user.name" ng-model="user.name" af-field required />
             <div af-messages="user.name"></div>
           </div>
           <div class="col-md-6"><pre ng-show="user.name">{{user.name}}</pre></div>
         </div>
 
-        <div class="form-group" af-field-state af-feedback af-field-name="user.email">
+        <div class="form-group" af-field-state="user.email">
           <label class="control-label col-md-2" for="email">E-mail*</label>
           <div class="col-md-4">
             <input type="email" class="form-control" id="email" name="user.email" ng-model="user.email" af-field required />
