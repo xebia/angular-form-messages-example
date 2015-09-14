@@ -8,7 +8,7 @@
 
       <fieldset>
         <legend>Friends</legend>
-        <div ng-form name="friendsForm{{$index}}" ng-repeat="friend in complexUser.friends" ng-init="friend.id = $index + 1">
+        <div ng-form name="friendsForm{{$index}}" ng-repeat="friend in repeatingUser.friends" ng-init="friend.id = $index + 1">
           <div class="form-group" af-field-state af-field-name="friend.name">
             <label class="control-label col-md-2" for="friendName{{$index}}">
               <a href ng-click="removeFriend($index)">

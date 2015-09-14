@@ -27,30 +27,30 @@
         <div class="form-group" af-field-state="user.name">
           <label class="control-label col-md-2" for="name">Name*</label>
           <div class="col-md-4">
-            <input type="text" class="form-control" id="name" name="user.name" ng-model="user.name" af-field required />
+            <input type="text" class="form-control" id="name" name="user.name" ng-model="simpleUser.name" af-field required />
             <div af-messages="user.name"></div>
           </div>
-          <div class="col-md-6"><pre ng-show="user.name">{{user.name}}</pre></div>
+          <div class="col-md-6"><pre ng-show="simpleUser.name">{{simpleUser.name}}</pre></div>
         </div>
 
         <div class="form-group" af-field-state="user.email">
           <label class="control-label col-md-2" for="email">E-mail*</label>
           <div class="col-md-4">
-            <input type="email" class="form-control" id="email" name="user.email" ng-model="user.email" af-field required />
+            <input type="email" class="form-control" id="email" name="user.email" ng-model="simpleUser.email" af-field required />
             <div af-messages="user.email"></div>
           </div>
-          <div class="col-md-6"><pre ng-show="user.email">{{user.email}}</pre></div>
+          <div class="col-md-6"><pre ng-show="simpleUser.email">{{simpleUser.email}}</pre></div>
         </div>
 
         <div class="form-group" af-field-state="user.color">
           <label class="control-label col-md-2" for="color">Favorite color</label>
           <div class="col-md-4">
-            <select class="form-control" name="user.color" id="color" af-field ng-model="user.color" ng-options="value for (key, value) in {red: 'Red', blue: 'Blue', green: 'Green'}" required>
+            <select class="form-control" name="user.color" id="color" af-field ng-model="simpleUser.color" ng-options="value for (key, value) in {red: 'Red', blue: 'Blue', green: 'Green'}" required>
               <option value=""></option>
             </select>
             <div af-messages="user.color"></div>
           </div>
-          <div class="col-md-6"><pre ng-show="user.color">{{user.color}}</pre></div>
+          <div class="col-md-6"><pre ng-show="simpleUser.color">{{simpleUser.color}}</pre></div>
         </div>
 
         <div class="form-group" af-field-state="user.agree">
@@ -58,13 +58,13 @@
           <div class="col-md-4">
             <div class="checkbox">
               <label>
-                <input type="checkbox" af-field name="user.agree" ng-model="user.agree" required>
+                <input type="checkbox" af-field name="user.agree" ng-model="simpleUser.agree" required>
                 I agree
               </label>
             </div>
             <div af-messages="user.agree"></div>
           </div>
-          <div class="col-md-6"><pre ng-show="user.agree">{{user.agree}}</pre></div>
+          <div class="col-md-6"><pre ng-show="simpleUser.agree">{{simpleUser.agree}}</pre></div>
         </div>
       </fieldset>
 

@@ -1,17 +1,18 @@
 angular.module('angularFormMessagesExample').controller('UserController', function ($q, $scope, $timeout) {
-  $scope.user = {};
-  $scope.complexUser = {
+  $scope.repeatingUser = {
     name: 'Frank',
-    food: { Meat: true },
     friends: [{}, {}]
+  };
+  $scope.customUser = {
+    food: { Meat: true }
   };
   $scope.food = ['Meat', 'Fish', 'Vegetarian'];
 
   $scope.newFriend = function () {
-    $scope.complexUser.friends.push({});
+    $scope.repeatingUser.friends.push({});
   };
   $scope.removeFriend = function (i) {
-    $scope.complexUser.friends.splice(i, 1);
+    $scope.repeatingUser.friends.splice(i, 1);
   };
 
   $scope.submitSimple = function () {
@@ -65,7 +66,7 @@ angular.module('angularFormMessagesExample').controller('UserController', functi
     return $timeout(function () {
       return $q.reject({
         validation: {
-          userForm: {
+          customForm: {
             'user.food': [{ message: 'Sorry, this food is not available', type: 'ERROR' }]
           }
         }
