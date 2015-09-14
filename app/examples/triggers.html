@@ -1,0 +1,167 @@
+<h2>Trigger on blur</h2>
+<div class="row">
+  <div class="col-lg-4">
+
+    <p>
+      This is the same form as the simple form, but the trigger setting is set to 'blur' using the <code>af-trigger-on</code> attribute, to override the application wide setting ('change').<br/>
+      Correct values are <code>change</code> (default), <code>blur</code> and <code>submit</code>.
+    </p>
+    <p>The form always validates on submit.</p>
+    <p>To set a default value for your app, configure this with <code>AfMessageServiceProvider.setAfTriggerOn('blur')</code>.</p>
+  </div>
+
+  <div class="col-lg-8">
+    <!-- create new scope so that forms do not send messages to each other-->
+    <form class="form-horizontal" af-submit="submitSimple()" name="userForm" af-trigger-on="blur" ng-if="true" novalidate>
+      <div af-messages af-alert></div>
+
+      <fieldset>
+        <legend>Personal information</legend>
+
+        <div class="form-group" af-field-state="user.name">
+          <label class="control-label col-md-2" for="name">Name*</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control" id="name" name="user.name" ng-model="user.name" af-field name-length="3" required />
+            <div af-messages="user.name"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user.name">{{user.name}}</pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.email">
+          <label class="control-label col-md-2" for="email">E-mail*</label>
+          <div class="col-md-4">
+            <input type="email" class="form-control" id="email" name="user.email" ng-model="user.email" af-field required />
+            <div af-messages="user.email"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user.email">{{user.email}}</pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.color">
+          <label class="control-label col-md-2" for="color">Favorite color</label>
+          <div class="col-md-4">
+            <select class="form-control" name="user.color" id="color" af-field ng-model="user.color" ng-options="value for (key, value) in {red: 'Red', blue: 'Blue', green: 'Green'}" required>
+              <option value=""></option>
+            </select>
+            <div af-messages="user.color"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user.color">{{user.color}}</pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.agree">
+          <label class="col-md-2 control-label">Agreement*</label>
+          <div class="col-md-4">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" af-field name="user.agree" ng-model="user.agree" required>
+                I agree
+              </label>
+            </div>
+            <div af-messages="user.agree"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user.agree">{{user.agree}}</pre></div>
+        </div>
+      </fieldset>
+
+      <p>
+        <button type="submit" class="btn btn-primary" af-submit-button>Submit</button>
+        <span ng-show="isSubmitting" class="spinner"></span>
+      </p>
+
+    </form>
+  </div>
+</div>
+<hr/>
+<h2>Trigger per field</h2>
+<div class="row">
+  <div class="col-lg-4">
+    <p>Now the <code>af-trigger-on</code> attribute is set to 'change' on <strong>Gender</strong> and <strong>Gender Other</strong> fields to override the form trigger configuration ('submit').</p>
+    <p>Futhermore the <code>af-trigger</code> attribute is set on this field so that the validation is triggered when the <strong>Gender</strong> radio changes.</p>
+  </div>
+
+  <div class="col-lg-8">
+    <!-- create new scope so that forms do not send messages to each other-->
+    <form class="form-horizontal" af-submit="submitTrigger()" name="triggerForm" af-trigger-on="change" ng-if="true" novalidate>
+      <div af-messages af-alert></div>
+
+      <fieldset>
+        <legend>Personal information</legend>
+
+        <div class="form-group" af-field-state="user.name">
+          <label class="control-label col-md-2" for="nameTrigger">Name*</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control" id="nameTrigger" name="user.name" ng-model="user2.name" af-field name-length="3" af-trigger-on="blur" required />
+            <div af-messages="user.name"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user2.name">{{user2.name}}</pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.email">
+          <label class="control-label col-md-2" for="emailTrigger">E-mail*</label>
+          <div class="col-md-4">
+            <input type="email" class="form-control" id="emailTrigger" name="user.email" ng-model="user2.email" af-field required />
+            <div af-messages="user.email"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user2.email">{{user2.email}}</pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.color">
+          <label class="control-label col-md-2" for="colorTrigger">Favorite color</label>
+          <div class="col-md-4">
+            <select class="form-control" name="user.color" id="colorTrigger" af-field ng-model="user2.color" ng-options="value for (key, value) in {red: 'Red', blue: 'Blue', green: 'Green'}" required>
+              <option value=""></option>
+            </select>
+            <div af-messages="user.color"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user2.color">{{user2.color}}</pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.gender">
+          <label for="male" class="control-label col-md-2">Gender*</label>
+          <div class="col-md-4">
+            <div class="radio">
+              <label>
+                <input type="radio" id="male" name="user.gender" ng-model="user2.gender" value="male" af-field af-trigger-on="change" required /> Male
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" id="female" name="user.gender" ng-model="user2.gender" value="female" af-field af-trigger-on="change" required /> Female
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" id="other" name="user.gender" ng-model="user2.gender" value="other" af-field af-trigger-on="change" required /> Other, namely:
+                <div af-field-state="user.otherGender">
+                  <input type="text" class="form-control" name="user.otherGender" ng-model="user2.otherGender" af-field af-trigger-on="change" af-trigger="user2.gender === 'other'" ng-required="user2.gender === 'other'" />
+                  <div af-messages="user.otherGender"></div>
+                </div>
+              </label>
+            </div>
+            <div af-messages="user.gender"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user2.gender">{{user2.gender}} <span ng-show="user2.otherGender">({{user2.otherGender}})</span></pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.agree">
+          <label class="col-md-2 control-label">Agreement*</label>
+          <div class="col-md-4">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" af-field name="user.agree" ng-model="user2.agree" required>
+                I agree
+              </label>
+            </div>
+            <div af-messages="user.agree"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="user2.agree">{{user2.agree}}</pre></div>
+        </div>
+      </fieldset>
+
+      <p>
+        <button type="submit" class="btn btn-primary" af-submit-button>Submit</button>
+        <span ng-show="isSubmitting" class="spinner"></span>
+      </p>
+
+    </form>
+  </div>
+</div>

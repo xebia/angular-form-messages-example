@@ -1,6 +1,6 @@
 {
   "validation": {
-    "complexUserForm": {
+    "userForm": {
       "$messages": [
         {
           "message": "There are errors on the form",
@@ -38,6 +38,12 @@
         },
         {
           "message": "User email server side error",
+          "type": "ERROR"
+        }
+      ],
+      "user.food": [
+        {
+          "message": "Sorry, this food is not available",
           "type": "ERROR"
         }
       ]

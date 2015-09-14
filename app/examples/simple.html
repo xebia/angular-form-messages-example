@@ -1,0 +1,78 @@
+<h2>Simple form</h2>
+<div class="row">
+  <div class="col-lg-4">
+
+    <p>This is a simple Bootstrap form, extended with Angular Form Messages directives.</p>
+    <ul>
+      <li>All fields are required</li>
+      <li>Added <code>af-submit</code> to the form for handling the submit callback when the form is valid. The submit callback returns a rejecting promise with 'server side' errors.</li>
+      <li>Added <code>no-validate</code> to the form so that default browser validation is disabled.</li>
+      <li>Added <code>af-field</code> directives on the form elements to extend ngModel</li>
+      <li>Added <code>af-field-state</code> directives on the form groups to show for example a 'has-error' class when the form is invalid</li>
+      <li>Added <code>af-messages</code> divs next to the form elements to show the message</li>
+      <li>Added <code>af-messages</code> div with <code>af-alert</code> attribute for messages that belong to the form, not to a specific field.</li>
+      <li>Added <code>af-submit-button</code> that is disabled while submitting</li>
+      <li>Showing a spinner while submitting</li>
+      <li>Validation is triggered by the default value: 'change'</li>
+    </ul>
+  </div>
+
+  <div class="col-lg-8">
+    <form class="form-horizontal" af-submit="submitSimple()" name="userForm" novalidate>
+      <div af-messages af-alert></div>
+
+      <fieldset>
+        <legend>Personal information</legend>
+
+        <div class="form-group" af-field-state="user.name">
+          <label class="control-label col-md-2" for="name">Name*</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control" id="name" name="user.name" ng-model="simpleUser.name" af-field required />
+            <div af-messages="user.name"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="simpleUser.name">{{simpleUser.name}}</pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.email">
+          <label class="control-label col-md-2" for="email">E-mail*</label>
+          <div class="col-md-4">
+            <input type="email" class="form-control" id="email" name="user.email" ng-model="simpleUser.email" af-field required />
+            <div af-messages="user.email"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="simpleUser.email">{{simpleUser.email}}</pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.color">
+          <label class="control-label col-md-2" for="color">Favorite color</label>
+          <div class="col-md-4">
+            <select class="form-control" name="user.color" id="color" af-field ng-model="simpleUser.color" ng-options="value for (key, value) in {red: 'Red', blue: 'Blue', green: 'Green'}" required>
+              <option value=""></option>
+            </select>
+            <div af-messages="user.color"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="simpleUser.color">{{simpleUser.color}}</pre></div>
+        </div>
+
+        <div class="form-group" af-field-state="user.agree">
+          <label class="col-md-2 control-label">Agreement*</label>
+          <div class="col-md-4">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" af-field name="user.agree" ng-model="simpleUser.agree" required>
+                I agree
+              </label>
+            </div>
+            <div af-messages="user.agree"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="simpleUser.agree">{{simpleUser.agree}}</pre></div>
+        </div>
+      </fieldset>
+
+      <p>
+        <button type="submit" class="btn btn-primary" af-submit-button>Submit</button>
+        <span ng-show="isSubmitting" class="spinner"></span>
+      </p>
+
+    </form>
+  </div>
+</div>
