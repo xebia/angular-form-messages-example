@@ -1,0 +1,50 @@
+<h2>Reusable form</h2>
+<div class="row">
+  <div class="col-lg-4">
+    <p>This example shows how you can reuse translations between forms/components.</p>
+    <ul>
+      <li>All fields are required</li>
+      <li>The error label used by the email field is: 'reusable.email.email'.
+        The reusable prefix is set using: <span>AfMessageServiceProvider</span>
+        <span>.setFieldValidatorLabelPrefix('reusable');</span></li>
+    </ul>
+  </div>
+
+  <div class="col-lg-8">
+    <form class="form-horizontal" af-submit name="formA" novalidate>
+      <div af-messages af-alert></div>
+
+      <fieldset>
+        <legend>Form A</legend>
+
+        <div class="form-group" af-field-state="user.email">
+          <label class="control-label col-md-2" for="emailA">E-mail*</label>
+          <div class="col-md-4">
+            <input type="email" class="form-control" id="emailA" name="email" ng-model="emailA" af-field required />
+            <div af-messages="email"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="emailA">{{emailA}}</pre></div>
+        </div>
+      </fieldset>
+
+    </form>
+
+    <form class="form-horizontal" af-submit name="formB" novalidate>
+      <div af-messages af-alert></div>
+
+      <fieldset>
+        <legend>Form B</legend>
+
+        <div class="form-group" af-field-state="user.email">
+          <label class="control-label col-md-2" for="emailB">E-mail*</label>
+          <div class="col-md-4">
+            <input type="email" class="form-control" id="emailB" name="email" ng-model="emailB" af-field required />
+            <div af-messages="email"></div>
+          </div>
+          <div class="col-md-6"><pre ng-show="emailB">{{emailBl}}</pre></div>
+        </div>
+      </fieldset>
+
+    </form>
+  </div>
+</div>

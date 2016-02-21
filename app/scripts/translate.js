@@ -5,6 +5,7 @@
 angular.module('angularFormMessagesExample')
   .factory('$translate', function ($q) {
     var translations = {
+      'reusable.email.email': 'Please fill in an e-mail address (general error)',
       'userForm.user.email.email': 'Please fill in an e-mail address',
       'userForm.user.required': 'There is a required field that is empty',
       date: 'Please fill in a valid date',
