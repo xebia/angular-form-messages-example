@@ -10,11 +10,6 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
-  function mountFolder(dir) {
-    console.log(serveStatic(require('path').resolve(grunt.template.process(dir))));
-    return serveStatic(require('path').resolve(grunt.template.process(dir)));
-  }
-
   grunt.initConfig({
     paths: paths,
 
@@ -29,9 +24,9 @@ module.exports = function (grunt) {
           open: true,
           middleware: function () {
             return [
-              mountFolder(paths.app),
-              mountFolder('node_modules'),
-              mountFolder('app/styles')
+              serveStatic(paths.app),
+              serveStatic('node_modules'),
+              serveStatic('app/styles')
             ];
           }
         }
@@ -41,9 +36,9 @@ module.exports = function (grunt) {
           port: 9001,
           middleware: function () {
             return [
-              mountFolder(paths.app),
-              mountFolder('test'),
-              mountFolder('node_modules')
+              serveStatic(paths.app),
+              serveStatic('test'),
+              serveStatic('node_modules')
             ];
           }
         }
@@ -55,7 +50,34 @@ module.exports = function (grunt) {
         }
       }
     },
-
+    coverage: {
+      dist: {
+        options: {
+          thresholds: {
+            statements: 100,
+            branches: 100,
+            functions: 100,
+            lines: 100
+          },
+          dir: 'coverage',
+          root: paths.test
+        }
+      }
+    },
+    jscs: {
+      options: {
+        config: './.jscsrc'
+      },
+      all: {
+        src: paths.app + '/scripts/**/*.js'
+      },
+      test: {
+        src: paths.test + '/spec/**/*.js'
+      },
+      config: {
+        src: ['*.js', paths.test + '/{,!(spec)}/*.js']
+      }
+    },
     jshint: {
       options: {
         jshintrc: '.jshintrc',
@@ -74,21 +96,6 @@ module.exports = function (grunt) {
         src: ['*.js', paths.test + '/{,!(spec)}/*.js']
       }
     },
-
-    jscs: {
-      options: {
-        config: './.jscsrc'
-      },
-      all: {
-        src: paths.app + '/scripts/**/*.js'
-      },
-      test: {
-        src: paths.test + '/spec/**/*.js'
-      },
-      config: {
-        src: ['*.js', paths.test + '/{,!(spec)}/*.js']
-      }
-    },
     jsonlint: {
       src: paths.test + '/mock/**/*.json'
     },
@@ -96,20 +103,6 @@ module.exports = function (grunt) {
       unit: {
         configFile: 'test/karma.conf.js',
         singleRun: true
-      }
-    },
-    coverage: {
-      dist: {
-        options: {
-          thresholds: {
-            statements: 100,
-            branches: 100,
-            functions: 100,
-            lines: 100
-          },
-          dir: 'coverage',
-          root: paths.test
-        }
       }
     }
   });
