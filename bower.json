@@ -1,7 +1,8 @@
 {
   "name": "angular-form-messages-example",
-  "main": "app.js",
   "version": "0.13.0",
+  "author": "Frank van Wijk <fvanwijk@xebia.com>",
+  "main": "app.js",
   "dependencies": {
   },
   "devDependencies": {
@@ -24,5 +25,6 @@
     }
   },
   "appPath": "app",
-  "moduleName": "angularFormMessagesExample"
+  "moduleName": "angularFormMessagesExample",
+  "license": "MIT"
 }
