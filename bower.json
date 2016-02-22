@@ -1,12 +1,10 @@
 {
   "name": "angular-form-messages-example",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "author": "Frank van Wijk <fvanwijk@xebia.com>",
   "main": "app.js",
-  "dependencies": {
-  },
-  "devDependencies": {
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "ignore": [
     "test",
     ".bowerrc",
