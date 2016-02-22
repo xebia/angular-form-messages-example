@@ -48,7 +48,7 @@ describe('UserController', function () {
 
       expect(result).toRejectWith({
         validation: {
-          userForm: _.pick(getMockData('user/errors.json').validation.userForm, '$messages', 'user.name', 'user.email')
+          userForm: _.pick(getJSONFixture('user/errors.json').validation.userForm, '$messages', 'user.name', 'user.email')
         }
       });
     });
@@ -61,7 +61,7 @@ describe('UserController', function () {
 
       expect(result).toRejectWith({
         validation: {
-          triggerForm: _.pick(getMockData('user/errors.json').validation.userForm, '$messages', 'user.name', 'user.email', 'user.gender')
+          triggerForm: _.pick(getJSONFixture('user/errors.json').validation.userForm, '$messages', 'user.name', 'user.email', 'user.gender')
         }
       });
     });
@@ -74,7 +74,7 @@ describe('UserController', function () {
 
       expect(result).toRejectWith({
         validation: {
-          friendsForm1: getMockData('user/errors.json').validation.friendsForm1
+          friendsForm1: getJSONFixture('user/errors.json').validation.friendsForm1
         }
       });
     });
@@ -87,7 +87,7 @@ describe('UserController', function () {
 
       expect(result).toRejectWith({
         validation: {
-          customForm: _.pick(getMockData('user/errors.json').validation.userForm, 'user.food')
+          customForm: _.pick(getJSONFixture('user/errors.json').validation.userForm, 'user.food')
         }
       });
     });
