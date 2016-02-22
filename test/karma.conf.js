@@ -5,7 +5,7 @@ module.exports = function (config) {
     files: karmaFiles.files,
     exclude: karmaFiles.exclude,
     plugins: [
-      'karma-phantomjs2-launcher',
+      'karma-phantomjs-launcher',
       'karma-jasmine',
       'karma-ng-html2js-preprocessor',
       'karma-coverage'
@@ -28,7 +28,7 @@ module.exports = function (config) {
     },
     autoWatch: true,
     basePath: '../',
-    browsers: ['PhantomJS2'],
+    browsers: ['PhantomJS'],
     colors: true,
     frameworks: ['jasmine'],
     logLevel: config.LOG_INFO,

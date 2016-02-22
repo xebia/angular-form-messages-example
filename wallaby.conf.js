@@ -12,7 +12,7 @@ module.exports = function () {
       }
     },
     env: {
-      runner: require('phantomjs2-ext').path,
+      runner: require('phantomjs-prebuilt').path,
       params: {
         runner: '--web-security=false'
       }
